@@ -1,0 +1,87 @@
+.angular-multi-slider {
+    display: inline-block;
+    position: relative;
+    height: 5px;
+    width: 100%;
+    margin: 25px 5px 25px 5px;
+    vertical-align: middle;
+}
+.angular-multi-slider div {
+    white-space: nowrap;
+    position: absolute;
+}
+.angular-multi-slider div.bar {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background: #999;
+    overflow: hidden;
+}
+.angular-multi-slider div.handle {
+    cursor: pointer;
+    width: 10px;
+    height: 30px;
+    top: -15px;
+    background-color: #13b6ff;
+    border: 2px solid #000;
+    z-index: 2;
+    border-radius: 4px;
+    -o-transition:.3s;
+    -ms-transition:.3s;
+    -moz-transition:.3s;
+    -webkit-transition:.3s;
+    -webkit-transition-property: background-color;
+    transition-property: background-color;
+}
+.angular-multi-slider div.handle:hover,
+.angular-multi-slider div.handle:focus,
+.angular-multi-slider div.handle:active,
+.angular-multi-slider div.handle.active {
+    background-color: #0077ac;
+}
+.angular-multi-slider div.handle:hover + .bubble,
+.angular-multi-slider div.handle:focus + .bubble,
+.angular-multi-slider div.handle.grab + .bubble,
+.angular-multi-slider div.handle:hover,
+.angular-multi-slider div.handle:focus,
+.angular-multi-slider div.handle.grab {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    z-index: 9999;
+}
+.angular-multi-slider div.handle.grab{
+    background-color: black;
+}
+.angular-multi-slider div.bubble {
+    display: none;
+    cursor: default;
+    top: -36px;
+    padding: 1px 3px 1px 3px;
+    font-size: 0.7em;
+    font-family: sans-serif;
+    -o-transition:.1s;
+    -ms-transition:.1s;
+    -moz-transition:.1s;
+    -webkit-transition:.1s;
+    -webkit-transition-property: top;
+    transition-property: top;
+}
+.angular-multi-slider div.bubble:nth-child(2) {
+    top: 34px !important;
+    z-index:9999;
+}
+.angular-multi-slider div.bubble.active {
+    display: inline-block;
+    color: #fff;
+    font-size:12px;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: rgba(0,0,0,0.75);
+    border-radius: 8px;
+    padding: 3px 8px;
+}
+.angular-multi-slider div.limit {
+    margin-top: 12px;
+    color: #000;
+    font-weight: bold;
+}

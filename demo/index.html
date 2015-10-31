@@ -1,0 +1,35 @@
+<html ng-app="multiSliderDemo">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi Slider</title>
+  <link rel="stylesheet" href="../multislider.css">
+</head>
+<body>
+  <div ng-controller="DemoCtrl">
+    <a href="http://keithfimreite.com/angular-multi-slider-directive.aspx" target="_blank">Demo Site</a>
+    <p>Slider: {{ slider | json}}</p>
+
+    <div multi-slider
+         floor="0"
+         ceiling="500"
+         step="10"
+         precision="2"
+         bubbles="true"
+         sliders="slider"></div>
+    <br/>
+
+    <p>Multiple Sliders: {{ sliders | json}}</p>
+    <multi-slider
+      floor="0"
+      step="10"
+      precision="2"
+      ceiling="500"
+      bubbles="true"
+      sliders="sliders">
+    </multi-slider>
+  </div>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../multislider.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

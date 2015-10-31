@@ -1,0 +1,29 @@
+{
+  "name": "angular-multi-slider",
+  "version": "0.0.1",
+  "authors": [
+    "Keith <keith@keithfimreite.com>",
+    "Val <val.samonte@gmail.com>"
+  ],
+  "description": "angular multiple slider component",
+  "main": [
+    "multislider.js",
+    "multislider.css"
+  ],
+  "keywords": [
+    "multiple",
+    "slider",
+    "range"
+  ],
+  "license": "MIT",
+  "homepage": "http://keithfimreite.com/angular-multi-slider-directive.aspx",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "demo"
+  ],
+  "dependencies": {
+    "angular": "~1.3.2"
+  }
+}
