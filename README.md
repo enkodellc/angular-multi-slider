@@ -42,7 +42,7 @@ controller scope for sliders:
       {title:'User 3: ',value:450}
     ];
 ```
-## Properties:
+## Properties
 
 * __floor__ `{number}` Minimum Value for Slider
 * __ceiling__ `{number}` Maximum Value for Slider
@@ -50,6 +50,11 @@ controller scope for sliders:
 * __highlight__ `{string}` true or false for showing the persistent bubbles or false for just on hover
 * __precision__ `{number}` Maximum Value for Slider
 * __sliders__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
+
+## Todo
+
+* Tests
+* Handle overlapping tooltips by checking handle proximity
 
 ## Submitting an issue
 
