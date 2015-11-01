@@ -1,7 +1,7 @@
 'use strict';
 /*
  angular-range-slider v0.0.1
- https://github.com/supertorio/angular-range-slider
+ https://github.com/enkodellc/angular-multi-slider
  */
 angular.module('angularMultiSlider', [])
 .directive('multiSlider', function($compile) {

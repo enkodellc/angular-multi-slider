@@ -4,7 +4,7 @@ angular-multi-slider
 Code licensed under New BSD License.
 
 AngularJS multi slider component with multiple sliders and thumbs support. Easily bind to 'value' and 'title' json objects. 
-CSS style is very simple easily customize your slider handles and bubbles.
+CSS style is very simple easily customize your slider handles and bubbles. [Derived from] (https://github.com/supertorio/angular-rangeslider-directive) 
 
 ###Installing via Bower
 ```
@@ -27,8 +27,8 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
       sliders="sliders">
     </multi-slider>
 ```
-controller scope:
-sliders:
+
+controller scope for sliders:
 ```js
     $scope.sliders = [
       {title:'User 1: ',value:100},
@@ -37,6 +37,14 @@ sliders:
     ];
 ```
 
+## Properties:
+
+* __floor__ `{number}` Minimum Value for Slider
+* __ceiling__ `{number}` Maximum Value for Slider
+* __step__ `{number}` Value between steps in snapping on the scale
+* __highlight__ `{string}` true or false for showing the persistent bubbles or false for just on hover
+* __precision__ `{number}` Maximum Value for Slider
+* __sliders__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
 
 ## Submitting an issue
 
