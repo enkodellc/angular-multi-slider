@@ -4,7 +4,7 @@ angular-multi-slider
 Code licensed under New BSD License.
 
 AngularJS multi slider component with multiple sliders and thumbs support. Easily bind to 'value' and 'title' json objects. 
-CSS style is very simple easily customize your slider handles and bubbles. 
+CSS style is very simple easily customize your slider handles and bubbles. No Jquery needed, the only dependency is Angular.
 
 *[Derived from angular-rangeslider](https://github.com/supertorio/angular-rangeslider-directive) 
 
@@ -55,14 +55,14 @@ controller scope for sliders:
 
 Please be responsible, the open source community is not there to guess your problem or to do your job. When submitting an issue try as much as possible to:
 
-1. search in the already existing issues or on [stackoverflow](http://stackoverflow.com/questions/tagged/ngtable?sort=newest&pageSize=30) if your issue has not been raised before.
+1. Search in the already existing issues. if your issue has not been raised before.
 
-2. give a precise description mentionning angular version, ng-table version.
+2. Give a precise description including angular version, angular-multi-slider version.
 
-3. give a way to reproduce your issue, the best would be with a <strong>running example</strong>, you can use [plunkr](http://plnkr.co/), or [codepen](http://codepen.io/). **Tip:** See below for a list of base codepen's you can fork
+3. Give a way to reproduce your issue, the best would be with a <strong>running example</strong>, you can use [plunkr](http://plnkr.co/), or [codepen](http://codepen.io/). **Tip:** See below for a list of base codepen's you can fork
 
-4. isolate your code sample on the probable issue to avoid pollution and noise.
+4. Isolate your code sample on the probable issue to avoid pollution and noise.
 
 5. Close your issue when a solution has been found (and share it with the community)
 
-Note that 80% of the open issues are actually not issues but "problem" due to developpers laziness or lack of investigation. These "issues" are a waste of time for us and especially if we have to setup a sample to reproduce the issue which those developpers could have done. Any open issue which does not fulfill this contract will be closed without investigation.
+Note that 80% of the open issues are actually not issues but "problem" due to developers laziness or lack of investigation. These "issues" are a waste of time for us and especially if we have to setup a sample to reproduce the issue which those developers could have done. Any open issue which does not fulfill this contract will be closed without investigation.
