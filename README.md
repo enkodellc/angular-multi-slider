@@ -20,7 +20,7 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
 
 ## Preview
 
-![Angular Multiple Sliders](https://github.com/enkodellc/angular-multi-slider/angular-multiple-sliders.png "Image Preview")
+![Angular Multiple Sliders](http://keithfimreite.com/BlogFiles/keithfimreite/angular/multislider/angular-multiple-sliders.png)
 
 
 ###Usage
