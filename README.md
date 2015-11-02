@@ -66,7 +66,7 @@ Please be responsible, the open source community is not there to guess your prob
 2. Give a precise description including angular version, angular-multi-slider version.
 
 3. Give a way to reproduce your issue, the best would be with a <strong>running example</strong>, you can use [plunkr](http://plnkr.co/), or [codepen](http://codepen.io/). 
-**Tip:** Here is a plunkr you can fork: khttp://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview
+**Tip:** [Here is a plunker you can fork](http://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview)
 
 4. Isolate your code sample on the probable issue to avoid pollution and noise.
 
