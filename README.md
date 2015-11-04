@@ -22,6 +22,7 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
 
 ![Angular Multiple Sliders](http://keithfimreite.com/BlogFiles/keithfimreite/angular/multislider/angular-multiple-sliders.png)
 
+[Here is a plunker you can fork](http://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview)
 
 ###Usage
 ```html
@@ -56,6 +57,8 @@ controller scope for sliders:
 * Tests
 * Handle overlapping tooltips by checking handle proximity
 * Minify
+* Color option within json object for each slider
+* A key directive
 
 ## Submitting an issue
 
