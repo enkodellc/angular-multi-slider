@@ -4,7 +4,7 @@ angular-multi-slider
 Code licensed under New BSD License.
 
 AngularJS multi slider component with multiple sliders and thumbs support. Easily bind to 'value' and 'title' json objects. 
-CSS style is very simple easily customize your slider handles and bubbles. No Jquery needed, the only dependency is Angular.
+CSS style is very simple easily customize your slider handles and bubbles. No JQuery dependency required. The only dependency is Angular.
 
 *[Derived from angular-rangeslider](https://github.com/supertorio/angular-rangeslider-directive) 
 
@@ -12,19 +12,24 @@ CSS style is very simple easily customize your slider handles and bubbles. No Jq
 ```
 bower install angular-multi-slider
 ```
+	
 Include both multislider.js and multislider.css, then add `angularMultiSlider` to your `angular.module` dependencies.
 
-## Examples
+##Examples
 
 * [Demo site](http://keithfimreite.com/angular-multi-slider-directive.aspx)
 
-## Preview
+##Preview
 
 ![Angular Multiple Sliders](http://keithfimreite.com/BlogFiles/keithfimreite/angular/multislider/angular-multiple-sliders.png)
 
 [Here is a plunker you can fork](http://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview)
 
 ###Usage
+
+1. Add the `angularMultiSlider` dependency to your Angular project. example:
+	* `angular.module('myApp', ['angularMultiSlider'])`	
+2. Create a 'multi-slider' directive in your view and give it a model, where `ng-model` is a variable on `$scope`.
 ```html
     <multi-slider
       floor="0"
@@ -32,7 +37,7 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
       precision="2"
       ceiling="500"
       bubbles="true"
-      ngModel="sliders">
+      ng-model="sliders">
     </multi-slider>
 ```
 controller scope for sliders:
