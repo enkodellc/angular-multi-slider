@@ -1,6 +1,6 @@
 'use strict';
 /*
- angular-range-slider v0.0.1
+ angular-range-slider v0.1.0
  https://github.com/enkodellc/angular-multi-slider
  */
 angular.module('angularMultiSlider', [])
