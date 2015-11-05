@@ -2,33 +2,78 @@
 <head>
   <meta charset="UTF-8">
   <title>Multi Slider</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="../multislider.css">
 </head>
 <body>
-  <div ng-controller="DemoCtrl">
-    <a href="http://keithfimreite.com/angular-multi-slider-directive.aspx" target="_blank">Demo Site</a>
-    <p>Slider: {{ slider | json}}</p>
+<div ng-controller="DemoCtrl">
+  <h1>Angular Multiple Slider Directive</h1>
+  <p>Pure Angular slider control with no JQuery Dependencies. This demo utilizes
+    <a href="https://angular-ui.github.io/bootstrap/">UI Bootstrap</a> version 0.14.3 which also requires ngAnimate.
+    These are not required for the angular-multi-slider, just for this demo.</p>
+  Developer Page - <a href="http://keithfimreite.com/angular-multi-slider-directive.aspx" target="_blank">Demo Site</a>
+  <article>
+    <h2>Single Slider - Hover / Grab Bubble</h2>
+    <fieldset class="row">
+      <section class="col-sm-4">
+        <pre>
+          {{ slider | json}}
+        </pre>
+      </section>
+      <section class="col-sm-6 padding-10">
+        <div multi-slider
+             floor="0"
+             ceiling="500"
+             step="10"
+             precision="2"
+             bubbles="false"
+             ng-model="slider"></div>
+      </section>
+    </fieldset>
+  </article>
+  <hr/>
+  <article>
+    <h2>Multiple Sliders in a Form - Persistent Bubbles</h2>
+    <form name="sliderForm" id="sliderForm" novalidate autocomplete="off">
+      <fieldset class="row">
+        <section class="col-sm-4">
+        <pre>
+          {{ sliders | json}}
+        </pre>
+        </section>
+        <section class="col-sm-6 padding-10">
+          <multi-slider name="mySlider"
+                        floor="0"
+                        step="10"
+                        precision="2"
+                        ceiling="500"
+                        bubbles="true"
+                        ng-model="sliders">
+          </multi-slider>
+        </section>
+        <section class="col-sm-2">
+          <p>
+            Form Dirty: {{ sliderForm.$dirty }}
+            <br/>
+            Form Pristine: {{ sliderForm.$pristine }}
+            <br/>
+            Slider Dirty: {{ sliderForm.mySlider.$dirty }}
+            <br/>
+            Slider Pristine: {{ sliderForm.mySlider.$pristine }}
+        </section>
+      </fieldset>
+    </form>
+  </article>
+  <hr/>
+  <article>
+    <h2>Sliders into modal</h2>
+    <button type="button" ng-click="openModal()" class="btn btn-default btn-lg">Open Modal!</button>
+  </article>
 
-    <div multi-slider
-         floor="0"
-         ceiling="500"
-         step="10"
-         precision="2"
-         bubbles="true"
-         sliders="slider"></div>
-    <br/>
-
-    <p>Multiple Sliders: {{ sliders | json}}</p>
-    <multi-slider
-      floor="0"
-      step="10"
-      precision="2"
-      ceiling="500"
-      bubbles="true"
-      sliders="sliders">
-    </multi-slider>
-  </div>
-<script src="../bower_components/angular/angular.js"></script>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
 <script src="../multislider.js"></script>
 <script src="app.js"></script>
 </body>

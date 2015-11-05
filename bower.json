@@ -1,6 +1,6 @@
 {
   "name": "angular-multi-slider",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "authors": [
     "Keith <keith@keithfimreite.com>",
     "Tori Holmes-Kirk <https://github.com/supertorio>"
@@ -24,6 +24,6 @@
     "demo"
   ],
   "dependencies": {
-    "angular": "~1.3.2"
+    "angular": "~1.4.7"
   }
 }

@@ -43,20 +43,30 @@ angular.module('angularMultiSlider', [])
 
   return {
     restrict: 'EA',
+    require: '?ngModel',
     scope: {
       floor       : '@',
       ceiling     : '@',
       step        : '@',
       precision   : '@',
       bubbles     : '@',
-      sliders     : '='
+      sliders     : '=ngModel'
     },
     template :
       '<div class="bar"></div>' +
       '<div class="limit low">{{ floor }}</div>' +
       '<div class="limit high">{{ ceiling }}</div>',
 
-    link : function(scope, element, attrs) {
+    link : function(scope, element, attrs, ngModel) {
+      if (!ngModel) return; // do nothing if no ng-model
+
+      //base copy to see if sliders returned to original
+      var original;
+
+      ngModel.$render = function() {
+        original = angular.copy(scope.sliders);
+      };
+
       element.addClass('angular-multi-slider');
 
       // DOM Components
@@ -160,6 +170,10 @@ angular.module('angularMultiSlider', [])
             ngDocument.unbind(events.move);
             ngDocument.unbind(events.end);
 
+            if (angular.equals(scope.sliders, original)) {
+              ngModel.$setPristine();
+            }
+
             scope.$apply();
           };
 
@@ -186,6 +200,7 @@ angular.module('angularMultiSlider', [])
             scope.sliders[currentRef].value = newValue;
 
             setHandles();
+            ngModel.$setDirty();
             scope.$apply();
           };
 

@@ -32,7 +32,7 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
       precision="2"
       ceiling="500"
       bubbles="true"
-      sliders="sliders">
+      ngModel="sliders">
     </multi-slider>
 ```
 controller scope for sliders:
@@ -50,11 +50,12 @@ controller scope for sliders:
 * __step__ `{number}` Value between steps in snapping on the scale
 * __highlight__ `{string}` true or false for showing the persistent bubbles or false for just on hover
 * __precision__ `{number}` Maximum Value for Slider
-* __sliders__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
+* __ng-model__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
 
 ## Todo
 
 * Tests
+* ~~Set Dirty / Pristine~~
 * Handle overlapping tooltips by checking handle proximity
 * Minify
 * Color option within json object for each slider
