@@ -1,6 +1,6 @@
 {
   "name": "angular-multi-slider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Keith <keith@keithfimreite.com>",
     "Tori Holmes-Kirk <https://github.com/supertorio>"
@@ -12,6 +12,7 @@
   ],
   "keywords": [
     "multiple",
+    "sliders",
     "slider",
     "range"
   ],

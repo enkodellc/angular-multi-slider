@@ -1,31 +1,29 @@
 angular-multi-slider
 ===================
 
-Code licensed under New BSD License.
-
 AngularJS multi slider component with multiple sliders and thumbs support. Easily bind to 'value' and 'title' json objects. 
 CSS style is very simple easily customize your slider handles and bubbles. No JQuery dependency required. The only dependency is Angular.
 
 *[Derived from angular-rangeslider](https://github.com/supertorio/angular-rangeslider-directive) 
 
-###Installing via Bower
+### Installing via Bower
 ```
 bower install angular-multi-slider
 ```
 	
 Include both multislider.js and multislider.css, then add `angularMultiSlider` to your `angular.module` dependencies.
 
-##Examples
+## Examples
 
 * [Demo site](http://keithfimreite.com/angular-multi-slider-directive.aspx)
 
-##Preview
+## Preview
 
 ![Angular Multiple Sliders](http://keithfimreite.com/BlogFiles/keithfimreite/angular/multislider/angular-multiple-sliders.png)
 
 [Here is a plunker you can fork](http://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview)
 
-###Usage
+### Usage
 
 1. Add the `angularMultiSlider` dependency to your Angular project. example:
 	* `angular.module('myApp', ['angularMultiSlider'])`	
@@ -53,7 +51,7 @@ controller scope for sliders:
 * __floor__ `{number}` Minimum Value for Slider
 * __ceiling__ `{number}` Maximum Value for Slider
 * __step__ `{number}` Value between steps in snapping on the scale
-* __highlight__ `{string}` true or false for showing the persistent bubbles or false for just on hover
+* __bubbles__ `{string}` true or false for showing the persistent bubbles or false for just on hover
 * __precision__ `{number}` Maximum Value for Slider
 * __ng-model__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
 
@@ -82,3 +80,6 @@ Please be responsible, the open source community is not there to guess your prob
 5. Close your issue when a solution has been found (and share it with the community)
 
 Note that 80% of the open issues are actually not issues but "problem" due to developers laziness or lack of investigation. These "issues" are a waste of time for us and especially if we have to setup a sample to reproduce the issue which those developers could have done. Any open issue which does not fulfill this contract will be closed without investigation.
+
+## License
+Code licensed under New BSD License.

@@ -66,7 +66,7 @@ angular.module('angularMultiSlider', [])
       ngModel.$render = function() {
         original = angular.copy(scope.sliders);
       };
-
+      
       element.addClass('angular-multi-slider');
 
       // DOM Components
@@ -216,6 +216,9 @@ angular.module('angularMultiSlider', [])
           };
 
           handle.bind(events.start, onStart);
+
+          // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
+          setTimeout(setHandles, 1);
         };
 
         var setBindings = function () {
@@ -234,12 +237,13 @@ angular.module('angularMultiSlider', [])
         if (!bindingsSet) {
           setBindings();
         }
-        handleHalfWidth = handleHalfWidth +74.5;
+
         setHandles();
       };
 
       // Watch Models based on mode
       scope.$watch('sliders', updateDOM);
+      // Update on Window resize
       window.addEventListener('resize', updateDOM);
     }
   }
