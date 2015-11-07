@@ -38,15 +38,16 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
       ng-model="sliders">
     </multi-slider>
 ```
-controller scope for sliders:
+Controller scope for sliders:
 ```js
     $scope.sliders = [
-      {title:'User 1: ',value:100},
-      {title:'User 2: ',value:200},
-      {title:'User 3: ',value:450}
+      {title:'User 1: ', value:100, color: 'Red'},
+      {title:'User 2: ', value:200, color: '#00FF00' },
+      {title:'User 3: ', value:450, }
     ];
 ```
-## Properties
+
+## Directive Properties
 
 * __floor__ `{number}` Minimum Value for Slider
 * __ceiling__ `{number}` Maximum Value for Slider
@@ -55,14 +56,19 @@ controller scope for sliders:
 * __precision__ `{number}` Maximum Value for Slider
 * __ng-model__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
 
+## NgModel Properties
+* __title__ `{string}` Optional Title for the bubbles that popup during grab or persistently set
+* __value__ `{number}` Required - Value for the slider handle. This value should be between floor and ceiling inclusive.
+* __color__ `{HEX, RGB, or HTML color}` Optional color for the handle. Basically and valid CSS color: This can be a HEX color, RGB Color, or HTML color. 
+
 ## Todo
 
-* Tests
 * ~~Set Dirty / Pristine~~
+* ~~Color option within json object for each slider~~
 * Handle overlapping tooltips by checking handle proximity
-* Minify
-* Color option within json object for each slider
 * A key directive
+* Minify
+* Tests
 
 ## Submitting an issue
 

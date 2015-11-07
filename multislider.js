@@ -1,6 +1,6 @@
 'use strict';
 /*
- angular-range-slider v0.1.0
+ angular-range-slider v0.1.1
  https://github.com/enkodellc/angular-multi-slider
  */
 angular.module('angularMultiSlider', [])
@@ -154,6 +154,10 @@ angular.module('angularMultiSlider', [])
         var setHandles = function () {
           offset(ceilBubble, pixelize(barWidth - ceilBubble[0].offsetWidth));
           angular.forEach(scope.sliders, function(slider,key){
+            if (slider.color) {
+              handles[key].css({ "background-color": slider.color });
+            }
+
             offset(handles[key], pixelsToOffset(percentValue(slider.value)));
             offset(bubbles[key], pixelize(handles[key][0].offsetLeft - (bubbles[key][0].offsetWidth / 2) + handleHalfWidth));
           });

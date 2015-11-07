@@ -4,18 +4,18 @@ angular.module('multiSliderDemo', ['angularMultiSlider', 'ngAnimate', 'ui.bootst
 
 angular.module('multiSliderDemo')
   .controller('DemoCtrl', function ($rootScope, $scope, $uibModal) {
-    $scope.slider = [{title:'Solo: ',value:200}];
+    $scope.slider = [{value:200}];
 
     $scope.sliders = [
-      {title:'Weight: ',value:100},
-      {title:'File: ',value:200},
-      {title:'Test: ',value:450},
-      {title:'Test: ',value:150}
+      {title:'Weight: ', value:100, color: 'red'},
+      {title:'File: ', value:200, color: '#00FF00'},
+      {title:'Test: ', value:450, color: 'blue'},
+      {title:'Test: ', value:150, color: '#ccc'}
     ];
 
     $scope.modalSliders = [
-      {title:'Weight: ',value:100},
-      {title:'File: ',value:200}
+      {title:'Weight: ', value:100},
+      {title:'File: ', value:200}
     ];
 
     $scope.openModal = function() {

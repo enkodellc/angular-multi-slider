@@ -22,14 +22,14 @@
     width: 10px;
     height: 30px;
     top: -15px;
-    background-color: #13b6ff;
+    background-color: #13b6ff; /*can override with color in slider object*/
     border: 2px solid #000;
     z-index: 2;
     border-radius: 4px;
-    -o-transition:.3s;
-    -ms-transition:.3s;
-    -moz-transition:.3s;
-    -webkit-transition:.3s;
+    -o-transition: .3s;
+    -ms-transition: .3s;
+    -moz-transition: .3s;
+    -webkit-transition: .3s;
     -webkit-transition-property: background-color;
     transition-property: background-color;
 }
@@ -37,7 +37,8 @@
 .angular-multi-slider div.handle:focus,
 .angular-multi-slider div.handle:active,
 .angular-multi-slider div.handle.active {
-    background-color: #0077ac;
+    -webkit-filter: brightness(70%);
+    filter: brightness(70%);
 }
 .angular-multi-slider div.handle:hover + .bubble,
 .angular-multi-slider div.handle:focus + .bubble,
@@ -49,8 +50,9 @@
     transform: scale(1.1);
     z-index: 9999;
 }
+.angular-multi-slider div.handle.grab + .bubble,
 .angular-multi-slider div.handle.grab{
-    background-color: black;
+    background-color: rgba(0,0,0,1);
 }
 .angular-multi-slider div.bubble {
     display: none;
@@ -59,10 +61,10 @@
     padding: 1px 3px 1px 3px;
     font-size: 0.7em;
     font-family: sans-serif;
-    -o-transition:.1s;
-    -ms-transition:.1s;
-    -moz-transition:.1s;
-    -webkit-transition:.1s;
+    -o-transition: .1s;
+    -ms-transition: .1s;
+    -moz-transition: .1s;
+    -webkit-transition: .1s;
     -webkit-transition-property: top;
     transition-property: top;
 }
