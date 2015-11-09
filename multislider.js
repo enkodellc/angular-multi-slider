@@ -1,8 +1,5 @@
 'use strict';
-/*
- angular-range-slider v0.1.1
- https://github.com/enkodellc/angular-multi-slider
- */
+
 angular.module('angularMultiSlider', [])
 .directive('multiSlider', function($compile) {
   var events = {
@@ -79,8 +76,8 @@ angular.module('angularMultiSlider', [])
       $compile(sliderControls)(scope);
 
 
-      var children = element.children();
-      var bar         = angular.element(children[0]),
+      var children  = element.children();
+      var bar       = angular.element(children[0]),
         ngDocument  = angular.element(document),
         floorBubble = angular.element(children[1]),
         ceilBubble  = angular.element(children[2]),
@@ -112,12 +109,6 @@ angular.module('angularMultiSlider', [])
       var bindingsSet = false;
 
       var updateCalculations = function() {
-        if (''+scope.bubbles === 'true') {
-          angular.forEach(bubbles, function(bubble) {
-            bubble.addClass('active');
-          });
-        }
-
         scope.floor = roundStep(parseFloat(scope.floor), parseInt(scope.precision), parseFloat(scope.step), parseFloat(scope.floor));
         scope.ceiling = roundStep(parseFloat(scope.ceiling), parseInt(scope.precision), parseFloat(scope.step), parseFloat(scope.floor));
 
@@ -165,7 +156,7 @@ angular.module('angularMultiSlider', [])
 
         var bind = function (handle, bubble, currentRef, events) {
           var onEnd = function () {
-            handle.removeClass('active grab');
+            handle.removeClass('grab');
             bubble.removeClass('grab');
             if (!(''+scope.bubbles === 'true')) {
               bubble.removeClass('active');
@@ -220,9 +211,6 @@ angular.module('angularMultiSlider', [])
           };
 
           handle.bind(events.start, onStart);
-
-          // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
-          setTimeout(setHandles, 1);
         };
 
         var setBindings = function () {
@@ -240,9 +228,17 @@ angular.module('angularMultiSlider', [])
 
         if (!bindingsSet) {
           setBindings();
-        }
 
-        setHandles();
+          // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
+          setTimeout( function() {
+            if (''+scope.bubbles === 'true') {
+              angular.forEach(bubbles, function(bubble) {
+                bubble.addClass('active');
+              });
+            }
+            setHandles();
+          }, 1);
+        }
       };
 
       // Watch Models based on mode
