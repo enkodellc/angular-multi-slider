@@ -16,12 +16,11 @@ Include both multislider.js and multislider.css, then add `angularMultiSlider` t
 ## Examples
 
 * [Demo site](http://keithfimreite.com/angular-multi-slider-directive.aspx)
+* [Here is a plunker you can fork](http://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview)
 
 ## Preview
 
 ![Angular Multiple Sliders](http://keithfimreite.com/BlogFiles/keithfimreite/angular/multislider/angular-multiple-sliders.png)
-
-[Here is a plunker you can fork](http://plnkr.co/edit/uTrlSK4R0iEhmg3mF2Cv?p=preview)
 
 ### Usage
 
@@ -57,9 +56,22 @@ Controller scope for sliders:
 * __ng-model__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
 
 ## NgModel Properties
+
 * __title__ `{string}` Optional Title for the bubbles that popup during grab or persistently set
-* __value__ `{number}` Required - Value for the slider handle. This value should be between floor and ceiling inclusive.
-* __color__ `{HEX, RGB, or HTML color}` Optional color for the handle. Basically and valid CSS color: This can be a HEX color, RGB Color, or HTML color. 
+* __value__ `{number}` Required - Value for the slider handle. This value should be between floor and ceiling inclusive
+* __color__ `{HEX, RGB, or HTML color}` Optional color for the handle. Basically and valid CSS color: This can be a HEX color, RGB Color, or HTML color 
+
+## CSS Style Properties Tips
+
+* __handle__ `.angular-multi-slider div.handle` - Override the *background-color* in CSS for all the handles or use the NgModel *color* property  
+* __bar height__ `.angular-multi-slider` - Override the *height* to set the thickness of the slider line bar
+* __bar color__ `.angular-multi-slider div.bar` - Override the *border-radius* and *background* to set the color of the slider line bar
+* __bubble__ `.angular-multi-slider div.bubble.active` - Override the bubble *background-color*, *color*, *font-size*, etc. for the bubbles
+* __bar color__ `.angular-multi-slider div.bar` - Override the *border-radius* and *background* to set the color of the slider line bar
+* __limit__ `.angular-multi-slider div.limit` - Override the limits *color* and *margin-top*
+* __limit floor__ `.angular-multi-slider div.limit .floor` - Override the limits *color* and *margin-top* for the floor only
+* __limit ceiling__ `.angular-multi-slider div.limit .ceiling` - Override the limits *color* and *margin-top* for the ceiling only
+
 
 ## Todo
 
@@ -88,4 +100,5 @@ Please be responsible, the open source community is not there to guess your prob
 Note that 80% of the open issues are actually not issues but "problem" due to developers laziness or lack of investigation. These "issues" are a waste of time for us and especially if we have to setup a sample to reproduce the issue which those developers could have done. Any open issue which does not fulfill this contract will be closed without investigation.
 
 ## License
+
 Code licensed under New BSD License.

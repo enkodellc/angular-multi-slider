@@ -23,7 +23,7 @@
     height: 30px;
     top: -15px;
     background-color: #13b6ff; /*can override with color in slider object*/
-    border: 2px solid #000;
+    border: 1px solid #000;
     z-index: 2;
     border-radius: 4px;
     -o-transition: .3s;
@@ -67,10 +67,6 @@
     -webkit-transition: .1s;
     -webkit-transition-property: top;
     transition-property: top;
-}
-.angular-multi-slider div.bubble:nth-child(2) {
-    top: 34px !important;
-    z-index:9999;
 }
 .angular-multi-slider div.bubble.active {
     display: inline-block;

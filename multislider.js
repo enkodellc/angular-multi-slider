@@ -33,7 +33,7 @@ angular.module('angularMultiSlider', [])
   }
 
   function pixelize(position) {
-    return position + "px";
+    return parseInt(position) + "px";
   }
 
   function contain(value) {
@@ -54,8 +54,8 @@ angular.module('angularMultiSlider', [])
     },
     template :
       '<div class="bar"></div>' +
-      '<div class="limit low">{{ floor }}</div>' +
-      '<div class="limit high">{{ ceiling }}</div>',
+      '<div class="limit floor">{{ floor }}</div>' +
+      '<div class="limit ceiling">{{ ceiling }}</div>',
 
     link : function(scope, element, attrs, ngModel) {
       if (!ngModel) return; // do nothing if no ng-model
