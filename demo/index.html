@@ -66,7 +66,49 @@
   </article>
   <hr/>
   <article>
-    <h2>Sliders into modal</h2>
+    <h2>Multi-Slider in multiple UI Bootstrap Tabs</h2>
+    <form name="tabSliderForm" id="tabSliderForm" novalidate autocomplete="off">
+      <fieldset class="row">
+        <uib-tabset>
+          <uib-tab heading="Tab 1" active="activeTabs[0]">
+            <div class="panel panel-default">
+              <div class="panel-body">Tab 1 Content for angular multiple sliders</p>
+                <multi-slider name="tabSlider1"
+                              floor="0"
+                              step="1"
+                              precision="2"
+                              ceiling="365"
+                              bubbles="true"
+                              ng-model="tabSliders"
+                              ng-if="activeTabs[0]">
+                </multi-slider>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab heading="Tab 2" active="activeTabs[1]">
+            <div class="panel panel-default">
+              <div class="panel-body">Tab 2 Content for angular multiple sliders<br/><br/>
+                <section class="col-sm-6 padding-10">
+                  <multi-slider name="tabSlider2"
+                                floor="0"
+                                step="1"
+                                precision="2"
+                                ceiling="365"
+                                bubbles="true"
+                                ng-model="tabSliders"
+                                ng-if="activeTabs[1]">
+                  </multi-slider>
+                </section>
+              </div>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </fieldset>
+    </form>
+  </article>
+  <hr/>
+  <article>
+    <h2>Sliders in a UI Bootstrap modal</h2>
     <button type="button" ng-click="openModal()" class="btn btn-default btn-lg">Open Modal!</button>
   </article>
 

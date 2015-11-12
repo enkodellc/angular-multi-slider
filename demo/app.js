@@ -4,6 +4,10 @@ angular.module('multiSliderDemo', ['angularMultiSlider', 'ngAnimate', 'ui.bootst
 
 angular.module('multiSliderDemo')
   .controller('DemoCtrl', function ($rootScope, $scope, $uibModal) {
+
+    //Needed for uib-tabs only
+    $scope.activeTabs = [true, false];
+
     $scope.slider = [{value: 200}];
 
     $scope.sliders = [
@@ -16,6 +20,17 @@ angular.module('multiSliderDemo')
     $scope.modalSliders = [
       {title: 'Weight: ', value: 1},
       {title: 'File: ', value: 2}
+    ];
+
+    $scope.tabSliders = [
+      {value: 10,   title: 'Brainstorming: ', component: 'Proposal Making'},
+      {value: 50,  title: 'Working groups formation: ', component: 'Proposal Making'},
+      {value: 100, title: 'Proposal drafting: ', component: 'Proposal Making'},
+      {value: 130, title: 'Proposal editing: ', component: 'Versioning'},
+      {value: 160, title: 'Proposal selection: ', component: 'Versioning'},
+      {value: 200, title: 'Discussion of proposals: ', component: 'Deliberation'},
+      {value: 250, title: 'Technical assessment: ', component: 'Deliberation'},
+      {value: 300, title: 'Voting on proposals: ', component: 'Voting'}
     ];
 
     $scope.openModal = function() {

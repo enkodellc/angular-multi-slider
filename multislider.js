@@ -63,7 +63,7 @@ angular.module('angularMultiSlider', [])
       ngModel.$render = function() {
         original = angular.copy(scope.sliders);
       };
-      
+
       element.addClass('angular-multi-slider');
 
       // DOM Components
@@ -74,7 +74,6 @@ angular.module('angularMultiSlider', [])
       var sliderControls = angular.element(sliderStr);
       element.append(sliderControls);
       $compile(sliderControls)(scope);
-
 
       var children  = element.children();
       var bar       = angular.element(children[0]),
@@ -236,8 +235,9 @@ angular.module('angularMultiSlider', [])
                 bubble.addClass('active');
               });
             }
+            updateCalculations();
             setHandles();
-          }, 1);
+          }, 10);
         }
       };
 
