@@ -201,7 +201,7 @@ angular.module('angularMultiSlider', [])
             };
 
             var safeLevel = safeAtLevel(currentRef, 1) - 1;
-            handles[currentRef].css({top: pixelize((-1 * (safeLevel * bubbleHeight)) + handleTop), height: pixelize(handleHeight + (bubbleHeight * safeLevel))});
+            handles[currentRef].css({top: pixelize((-1 * (safeLevel * bubbleHeight)) + handleTop), height: pixelize(handleHeight + (bubbleHeight * safeLevel)), 'z-index':  99-safeLevel});
             bubbles[currentRef].css({top: pixelize(bubbleTop - (bubbleHeight * safeLevel))});
           };
 
