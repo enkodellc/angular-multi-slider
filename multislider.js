@@ -221,9 +221,11 @@ angular.module('angularMultiSlider', [])
               }
 
               //Move possible elevated bubbles back down if one below it moved.
-              angular.forEach(scope.sliders, function(slider, key) {
-                overlapCheck(key);
-              });
+              if (scope.sliders.length > 1) {
+                angular.forEach(scope.sliders, function (slider, key) {
+                  overlapCheck(key);
+                });
+              }
 
               scope.$apply();
             };
@@ -253,7 +255,9 @@ angular.module('angularMultiSlider', [])
               setHandles();
 
               //This is my code for adjusting a slider. Might make this a property for resource conservation...
-              overlapCheck(currentRef);
+              if (scope.sliders.length > 1) {
+                overlapCheck(currentRef);
+              }
 
               ngModel.$setDirty();
               scope.$apply();
