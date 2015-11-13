@@ -6,9 +6,9 @@ angular.module('angularMultiSlider', [])
       restrict: 'EA',
       transclude: true,
       scope: {
-        sliders     : '=ngModel'
+        sliders : '=ngModel'
       },
-      link : function(scope, element, attrs) {
+      link: function(scope, element, attrs) {
         var sliderStr = '';
         angular.forEach(scope.sliders, function(slider, key){
           var colorKey = slider.color ? '<span style="background-color:' + slider.color + ';"></span> ' : '';
@@ -58,21 +58,15 @@ angular.module('angularMultiSlider', [])
       return Math.min(Math.max(0, value), 100);
     }
 
-    function overlaps(b1, b2, elevate) {
+    function overlaps(b1, b2, offsetTop) {
       function comparePositions(p1, p2) {
         var r1 = p1[0] < p2[0] ? p1 : p2;
         var r2 = p1[0] < p2[0] ? p2 : p1;
         return r1[1] > r2[0] || r1[0] === r2[0];
       }
 
-      var posB1 = [[ b1.offsetLeft, b1.offsetLeft + b1.offsetWidth ], [ b1.offsetTop, b1.offsetTop -  b1.scrollTop + b1.offsetHeight ]],
+      var posB1 = [[ b1.offsetLeft, b1.offsetLeft + b1.offsetWidth ], [ offsetTop, offsetTop -  b1.scrollTop + b1.offsetHeight ]],
           posB2 = [[ b2.offsetLeft, b2.offsetLeft + b2.offsetWidth ], [ b2.offsetTop, b2.offsetTop -  b2.scrollTop + b2.offsetHeight ]];
-
-      if (elevate >= 1) { //Tests to see if b1 will overlap IF we shift it up
-        posB1[1] = [b1.offsetTop - (b1.offsetHeight * elevate), b1.offsetTop -  b1.scrollTop - (b1.offsetHeight * (elevate-1))];
-      } else if (elevate <=1) { //Tests to see if b1 will overlap IF we shift it down
-        posB1[1] = [b1.offsetTop + (b1.offsetHeight * (elevate * -1) ), b1.offsetTop -  b1.scrollTop + (b1.offsetHeight * ((elevate * -1)+ 1))];
-      }
 
       return comparePositions( posB1[0], posB2[0] ) && comparePositions( posB1[1], posB2[1] );
     }
@@ -137,8 +131,10 @@ angular.module('angularMultiSlider', [])
           maxValue = 0,
           valueRange = 0,
           offsetRange = 0,
-          baseTop = -36, //TODO: Fix This
-          baseHeight = 30; //TODO: Fix This
+          bubbleTop = 0,
+          bubbleHeight = 0,
+          handleTop = 0,
+          handleHeight = 0;
 
         if (scope.step === undefined) scope.step = 10;
         if (scope.floor === undefined) scope.floor = 0;
@@ -195,35 +191,18 @@ angular.module('angularMultiSlider', [])
           };
 
           var overlapCheck = function(currentRef) {
-            var delta = 28; //TODO: fix this
-            var baseTop = -36; //TODO: Fix this
-            var collides = false;
-            for (var x = 0; x < scope.sliders.length; x ++) {
-              if (x != currentRef && overlaps(bubbles[currentRef][0], bubbles[x][0],0)) {
-                collides = true;
-                break;
-              }
-            }
-
-            if (collides) {
-              //TODO: Determine How far does it need to move up without another collision?
-              handles[currentRef].css({top: pixelize(baseTop), height: pixelize(baseHeight + delta)});
-              bubbles[currentRef].css({top: pixelize(baseTop - delta)});
-            }
-
-            if (bubbles[currentRef][0].offsetTop < baseTop) {
-              //Check if can move back down... TODO: Determine how far down can it go without another collision
-              var canLower = true;
-              for (var y = 0; y < scope.sliders.length; y ++) {
-                if (y != currentRef && overlaps(bubbles[currentRef][0], bubbles[y][0],-1)) {
-                  canLower = false;
+            var safeAtLevel = function(cRef, level) {
+              for (var x = 0; x < scope.sliders.length; x++) {
+                if (x != cRef && overlaps(bubbles[cRef][0], bubbles[x][0], (bubbleTop * level))) {
+                  return safeAtLevel(cRef, level + 1);
                 }
               }
-              if (canLower) {
-                handles[currentRef].css({top: '', height: ''});
-                bubbles[currentRef].css({top: ''});
-              }
-            }
+              return level;
+            };
+
+            var safeLevel = safeAtLevel(currentRef, 1) - 1;
+            handles[currentRef].css({top: pixelize((-1 * (safeLevel * bubbleHeight)) + handleTop), height: pixelize(handleHeight + (bubbleHeight * safeLevel))});
+            bubbles[currentRef].css({top: pixelize(bubbleTop - (bubbleHeight * safeLevel))});
           };
 
           var bind = function (handle, bubble, currentRef, events) {
@@ -242,7 +221,7 @@ angular.module('angularMultiSlider', [])
               }
 
               //Move possible elevated bubbles back down if one below it moved.
-              angular.forEach(scope.sliders, function(slider,key) {
+              angular.forEach(scope.sliders, function(slider, key) {
                 overlapCheck(key);
               });
 
@@ -319,6 +298,12 @@ angular.module('angularMultiSlider', [])
               }
               updateCalculations();
               setHandles();
+
+              //Get Default sizes of bubbles and handles, assuming each are equal, calculated from css
+              handleTop = handles[0][0].offsetTop;
+              handleHeight = handles[0][0].offsetHeight;
+              bubbleTop = bubbles[0][0].offsetTop;
+              bubbleHeight = bubbles[0][0].offsetHeight + 7; //add 7px bottom margin to the bubble offset for handle
             }, 10);
           }
         };
