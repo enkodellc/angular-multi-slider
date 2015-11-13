@@ -48,7 +48,7 @@
 .angular-multi-slider div.handle.grab {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-    z-index: 9999;
+    z-index: 99;
 }
 .angular-multi-slider div.handle.grab + .bubble,
 .angular-multi-slider div.handle.grab{
@@ -67,7 +67,9 @@
     -webkit-transition: .1s;
     -webkit-transition-property: top;
     transition-property: top;
+    z-index: 100;
 }
+.angular-multi-slider-key .key span,
 .angular-multi-slider div.bubble.active {
     display: inline-block;
     color: #fff;
@@ -82,4 +84,7 @@
     margin-top: 12px;
     color: #000;
     font-weight: bold;
+}
+.angular-multi-slider-key .key span {
+    border: 1px solid #000;
 }

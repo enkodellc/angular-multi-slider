@@ -14,7 +14,7 @@ angular.module('multiSliderDemo')
       {title: 'Weight: ', value: 100, color: 'red'},
       {title: 'File: ', value: 240, color: '#00FF00'},
       {title: 'Test: ', value: 450, color: 'blue'},
-      {title: 'Test: ', value: 10, color: '#ccc'}
+      {title: 'Folder: ', value: 10, color: '#ccc'}
     ];
 
     $scope.modalSliders = [
@@ -23,7 +23,7 @@ angular.module('multiSliderDemo')
     ];
 
     $scope.tabSliders = [
-      {value: 10,   title: 'Brainstorming: ', component: 'Proposal Making'},
+      {value: 10,  title: 'Brainstorming: ', component: 'Proposal Making'},
       {value: 50,  title: 'Working groups formation: ', component: 'Proposal Making'},
       {value: 100, title: 'Proposal drafting: ', component: 'Proposal Making'},
       {value: 130, title: 'Proposal editing: ', component: 'Versioning'},
