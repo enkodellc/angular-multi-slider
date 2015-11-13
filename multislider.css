@@ -68,6 +68,7 @@
     -webkit-transition-property: top;
     transition-property: top;
 }
+.angular-multi-slider-key .key span,
 .angular-multi-slider div.bubble.active {
     display: inline-block;
     color: #fff;
@@ -82,4 +83,7 @@
     margin-top: 12px;
     color: #000;
     font-weight: bold;
+}
+.angular-multi-slider-key .key span {
+    border: 1px solid #000;
 }

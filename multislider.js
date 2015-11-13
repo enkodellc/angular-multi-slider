@@ -1,6 +1,26 @@
 'use strict';
 
 angular.module('angularMultiSlider', [])
+  .directive('multiSliderKey', function($compile) {
+    return {
+      restrict: 'EA',
+      transclude: true,
+      scope: {
+        sliders     : '=ngModel'
+      },
+      link : function(scope, element, attrs) {
+        var sliderStr = '';
+        angular.forEach(scope.sliders, function(slider, key){
+          var colorKey = slider.color ? '<span style="background-color:' + slider.color + ';"></span> ' : '';
+          sliderStr += '<div class="key">' + colorKey + '{{ sliders[' + key.toString() + '].title }} <strong>{{ sliders[' + key.toString() + '].value}}</strong></div>';
+        });
+
+        var sliderControls = angular.element('<div class="angular-multi-slider-key">' + sliderStr + '</div>');
+        element.append(sliderControls);
+        $compile(sliderControls)(scope);
+      }
+    }
+  })
   .directive('multiSlider', function($compile) {
     var events = {
       mouse: {
@@ -88,7 +108,7 @@ angular.module('angularMultiSlider', [])
         // DOM Components
         var sliderStr = '';
         angular.forEach(scope.sliders, function(slider, key){
-          sliderStr += ('<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value}}</div>');
+          sliderStr += '<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value}}</div>';
         });
         var sliderControls = angular.element(sliderStr);
         element.append(sliderControls);
@@ -117,10 +137,10 @@ angular.module('angularMultiSlider', [])
           maxValue = 0,
           valueRange = 0,
           offsetRange = 0,
-          baseTop = -36,
-          baseHeight = 30;
+          baseTop = -36, //TODO: Fix This
+          baseHeight = 30; //TODO: Fix This
 
-        if (scope.step === undefined) scope.step = 1;
+        if (scope.step === undefined) scope.step = 10;
         if (scope.floor === undefined) scope.floor = 0;
         if (scope.ceiling === undefined) scope.ceiling = 500;
         if (scope.precision === undefined) scope.precision = 0;
@@ -175,8 +195,8 @@ angular.module('angularMultiSlider', [])
           };
 
           var overlapCheck = function(currentRef) {
-            var delta = 28;
-            var baseTop = -36;
+            var delta = 28; //TODO: fix this
+            var baseTop = -36; //TODO: Fix this
             var collides = false;
             for (var x = 0; x < scope.sliders.length; x ++) {
               if (x != currentRef && overlaps(bubbles[currentRef][0], bubbles[x][0],0)) {
@@ -220,6 +240,11 @@ angular.module('angularMultiSlider', [])
               if (angular.equals(scope.sliders, original)) {
                 ngModel.$setPristine();
               }
+
+              //Move possible elevated bubbles back down if one below it moved.
+              angular.forEach(scope.sliders, function(slider,key) {
+                overlapCheck(key);
+              });
 
               scope.$apply();
             };
