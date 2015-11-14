@@ -19,7 +19,7 @@ angular.module('multiSliderDemo')
 
     $scope.modalSliders = [
       {title: 'Weight: ', value: 1},
-      {title: 'File: ', value: 2}
+      {title: 'File: ', value: 1.2}
     ];
 
     $scope.tabSliders = [
