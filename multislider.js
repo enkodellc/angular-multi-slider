@@ -190,11 +190,20 @@ angular.module('angularMultiSlider', [])
             });
           };
 
+          var resetBubbles = function() {
+            //timeout must be longer than css animation for proper bubble collision detection
+            for (var i = 0; i < scope.sliders.length; i++)  {
+              (function(index) {
+                setTimeout(function() { overlapCheck(index) }, i * 150);
+              })(i);
+            }
+          };
+
           var overlapCheck = function(currentRef) {
             var safeAtLevel = function(cRef, level) {
               for (var x = 0; x < scope.sliders.length; x++) {
                 if (x != cRef && overlaps(bubbles[cRef][0], bubbles[x][0], (bubbleTop * level))) {
-                  return safeAtLevel(cRef, level + 1);
+                  return safeAtLevel(cRef, level+1);
                 }
               }
               return level;
@@ -222,9 +231,7 @@ angular.module('angularMultiSlider', [])
 
               //Move possible elevated bubbles back down if one below it moved.
               if (scope.sliders.length > 1) {
-                angular.forEach(scope.sliders, function (slider, key) {
-                  overlapCheck(key);
-                });
+                resetBubbles();
               }
 
               scope.$apply();
@@ -295,8 +302,8 @@ angular.module('angularMultiSlider', [])
 
             // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
             setTimeout( function() {
-              if (''+scope.bubbles === 'true') {
-                angular.forEach(bubbles, function(bubble) {
+              if ('' + scope.bubbles === 'true') {
+                angular.forEach(bubbles, function (bubble) {
                   bubble.addClass('active');
                 });
               }
@@ -308,6 +315,8 @@ angular.module('angularMultiSlider', [])
               handleHeight = handles[0][0].offsetHeight;
               bubbleTop = bubbles[0][0].offsetTop;
               bubbleHeight = bubbles[0][0].offsetHeight + 7; //add 7px bottom margin to the bubble offset for handle
+
+              resetBubbles();
             }, 10);
           }
         };

@@ -13,7 +13,7 @@ angular.module('multiSliderDemo')
     $scope.sliders = [
       {title: 'Weight: ', value: 100, color: 'red'},
       {title: 'File: ', value: 240, color: '#00FF00'},
-      {title: 'Test: ', value: 450, color: 'blue'},
+      {title: 'Test: ', value: 250, color: 'blue'},
       {title: 'Folder: ', value: 10, color: '#ccc'}
     ];
 
