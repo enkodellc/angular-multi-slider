@@ -3,9 +3,8 @@ angular-multi-slider
 
 AngularJS multi slider component with multiple sliders and thumbs support. Easily bind to 'value' and 'title' json objects. 
 CSS style is very simple easily customize your slider handles and bubbles. No JQuery dependency required. The only dependency is Angular.
-I have added a key / legend and collision detection. The collision detection is fairly good but not perfect so if you have issues you can submit an issue but 
-I am satisfied with the rendering at this point so your best best is to submit a PR. The best bet if you have a lot of sliders is to 
-set bubbles=false and use the key.
+I have added a key / legend and collision detection. The collision detection / bubble adjustment has a delay since the bubbles 
+have an animation to them. 
 
 *[Derived from angular-rangeslider](https://github.com/supertorio/angular-rangeslider-directive) 
 
@@ -82,7 +81,6 @@ Controller scope for sliders:
 * ~~Color option within json object for each slider~~
 * ~~Handle overlapping tooltips by checking handle proximity~~
 * ~~A key directive~~
-* Optimize collisions on initialization
 * Minify src -> dist folders
 * Tests
 
