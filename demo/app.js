@@ -23,14 +23,14 @@ angular.module('multiSliderDemo')
     ];
 
     $scope.tabSliders = [
-      {value: 10,  title: 'Brainstorming: ', component: 'Proposal Making'},
-      {value: 50,  title: 'Working groups formation: ', component: 'Proposal Making'},
-      {value: 100, title: 'Proposal drafting: ', component: 'Proposal Making'},
+      {value: 300, title: 'Voting on proposals: ', component: 'Voting'},
       {value: 130, title: 'Proposal editing: ', component: 'Versioning'},
       {value: 160, title: 'Proposal selection: ', component: 'Versioning'},
       {value: 200, title: 'Discussion of proposals: ', component: 'Deliberation'},
       {value: 250, title: 'Technical assessment: ', component: 'Deliberation'},
-      {value: 300, title: 'Voting on proposals: ', component: 'Voting'}
+      {value: 10,  title: 'Brainstorming: ', component: 'Proposal Making'},
+      {value: 40,  title: 'Working groups formation: ', component: 'Proposal Making'},
+      {value: 100, title: 'Proposal drafting: ', component: 'Proposal Making'}
     ];
 
     $scope.openModal = function() {

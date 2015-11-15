@@ -8,7 +8,7 @@ angular.module('angularMultiSlider', [])
       scope: {
         sliders : '=ngModel'
       },
-      link: function(scope, element, attrs) {
+      link: function(scope, element) {
         var sliderStr = '';
         angular.forEach(scope.sliders, function(slider, key){
           var colorKey = slider.color ? '<span style="background-color:' + slider.color + ';"></span> ' : '';
@@ -191,11 +191,15 @@ angular.module('angularMultiSlider', [])
           };
 
           var resetBubbles = function() {
-            //timeout must be longer than css animation for proper bubble collision detection
-            for (var i = 0; i < scope.sliders.length; i++)  {
-              (function(index) {
-                setTimeout(function() { overlapCheck(index) }, i * 150);
-              })(i);
+            if (scope.sliders.length > 1) {
+              //timeout must be longer than css animation for proper bubble collision detection
+              for (var i = 0; i < scope.sliders.length; i++) {
+                (function (index) {
+                  setTimeout(function () {
+                    overlapCheck(index);
+                  }, i * 150);
+                })(i);
+              }
             }
           };
 
@@ -209,9 +213,11 @@ angular.module('angularMultiSlider', [])
               return level;
             };
 
-            var safeLevel = safeAtLevel(currentRef, 1) - 1;
-            handles[currentRef].css({top: pixelize((-1 * (safeLevel * bubbleHeight)) + handleTop), height: pixelize(handleHeight + (bubbleHeight * safeLevel)), 'z-index':  99-safeLevel});
-            bubbles[currentRef].css({top: pixelize(bubbleTop - (bubbleHeight * safeLevel))});
+            if (scope.sliders.length > 1) {
+              var safeLevel = safeAtLevel(currentRef, 1) - 1;
+              handles[currentRef].css({top: pixelize((-1 * (safeLevel * bubbleHeight)) + handleTop), height: pixelize(handleHeight + (bubbleHeight * safeLevel)), 'z-index':  99-safeLevel});
+              bubbles[currentRef].css({top: pixelize(bubbleTop - (bubbleHeight * safeLevel))});
+            }
           };
 
           var bind = function (handle, bubble, currentRef, events) {
@@ -230,10 +236,7 @@ angular.module('angularMultiSlider', [])
               }
 
               //Move possible elevated bubbles back down if one below it moved.
-              if (scope.sliders.length > 1) {
-                resetBubbles();
-              }
-
+              resetBubbles();
               scope.$apply();
             };
 
@@ -260,11 +263,7 @@ angular.module('angularMultiSlider', [])
               scope.sliders[currentRef].value = newValue;
 
               setHandles();
-
-              //This is my code for adjusting a slider. Might make this a property for resource conservation...
-              if (scope.sliders.length > 1) {
-                overlapCheck(currentRef);
-              }
+              overlapCheck(currentRef);
 
               ngModel.$setDirty();
               scope.$apply();
