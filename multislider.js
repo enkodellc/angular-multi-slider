@@ -116,7 +116,6 @@ angular.module('angularMultiSlider', [])
           bubbles = [],
           handles = [];
 
-        //var sliderChildren = sliderControls.children();
         angular.forEach(scope.sliders, function(slider, key) {
           handles.push(angular.element(children[(key * 2) + 3]));
           bubbles.push(angular.element(children[(key * 2) + 4]));
@@ -139,7 +138,7 @@ angular.module('angularMultiSlider', [])
         if (scope.step === undefined) scope.step = 10;
         if (scope.floor === undefined) scope.floor = 0;
         if (scope.ceiling === undefined) scope.ceiling = 500;
-        if (scope.precision === undefined) scope.precision = 0;
+        if (scope.precision === undefined) scope.precision = 2;
         if (scope.bubbles === undefined) scope.bubbles = false;
 
         var bindingsSet = false;

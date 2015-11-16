@@ -49,14 +49,14 @@ Controller scope for sliders:
     ];
 ```
 
-## Directive Properties
+## Multi-Slider Directive Properties
 
 * __floor__ `{number}` Minimum Value for Slider
 * __ceiling__ `{number}` Maximum Value for Slider
-* __step__ `{number}` Value between steps in snapping on the scale
-* __bubbles__ `{string}` true or false for showing the persistent bubbles or false for just on hover
-* __precision__ `{number}` Maximum Value for Slider
+* __step__ `{number}` Value between steps in snapping on the scale. Examples (100, 10, 1, .1}
+* __precision__ `{number / integer}` The precision to which round each step is rounded to. Default: 2
 * __ng-model__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
+* __bubbles__ `{string}` true or false for showing the persistent bubbles or false for just on hover
 
 ## NgModel Properties
 
@@ -75,6 +75,9 @@ Controller scope for sliders:
 * __limit floor__ `.angular-multi-slider div.limit .floor` - Override the limits *color* and *margin-top* for the floor only
 * __limit ceiling__ `.angular-multi-slider div.limit .ceiling` - Override the limits *color* and *margin-top* for the ceiling only
 
+## Multi-Slide-Key Directive
+
+This optional directive will create a key for the slider. Similar to __multi-slider__ bind to the same 'ng-model' and use CSS to customize.
 
 ## Todo
 
@@ -83,6 +86,7 @@ Controller scope for sliders:
 * ~~Handle overlapping tooltips by checking handle proximity~~
 * ~~A key directive~~
 * ~~Bind / Watch to Ceiling & Floor for adjusting endpoints~~
+* Add filter to directive property for possible dates / object filter
 * Minify src -> dist folders
 * Tests
 
