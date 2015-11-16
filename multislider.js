@@ -189,7 +189,9 @@ angular.module('angularMultiSlider', [])
                 offset(handles[key], pixelsToOffset(percentValue(slider.value)));
                 offset(bubbles[key], pixelize(handles[key][0].offsetLeft - (bubbles[key][0].offsetWidth / 2) + handleHalfWidth));
                 handles[key].css({ 'display': 'block' });
-                bubbles[key].css({ 'display': 'block' });
+                if ('' + scope.bubbles === 'true') {
+                  bubbles[key].css({'display': 'block'});
+                }
               } else {
                 handles[key].css({ 'display': 'none' });
                 bubbles[key].css({ 'display': 'none' });
