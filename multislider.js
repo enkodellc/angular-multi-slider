@@ -50,7 +50,7 @@ angular.module('angularMultiSlider', [])
     }
 
     function pixelize(position) {
-      return parseInt(position) + "px";
+      return parseInt(position) + 'px';
     }
 
     function contain(value) {
@@ -66,7 +66,7 @@ angular.module('angularMultiSlider', [])
       }
 
       var posB1 = [[ b1.offsetLeft, b1.offsetLeft + b1.offsetWidth ], [ offsetTop, offsetTop -  b1.scrollTop + b1.offsetHeight ]],
-          posB2 = [[ b2.offsetLeft, b2.offsetLeft + b2.offsetWidth ], [ b2.offsetTop, b2.offsetTop -  b2.scrollTop + b2.offsetHeight ]];
+        posB2 = [[ b2.offsetLeft, b2.offsetLeft + b2.offsetWidth ], [ b2.offsetTop, b2.offsetTop -  b2.scrollTop + b2.offsetHeight ]];
 
       return comparePositions( posB1[0], posB2[0] ) && comparePositions( posB1[1], posB2[1] );
     }
@@ -131,10 +131,10 @@ angular.module('angularMultiSlider', [])
           maxValue = 0,
           valueRange = 0,
           offsetRange = 0,
-          bubbleTop = 0,
-          bubbleHeight = 0,
-          handleTop = 0,
-          handleHeight = 0;
+          bubbleTop = undefined,
+          bubbleHeight = undefined,
+          handleTop = undefined,
+          handleHeight = undefined;
 
         if (scope.step === undefined) scope.step = 10;
         if (scope.floor === undefined) scope.floor = 0;
@@ -182,11 +182,18 @@ angular.module('angularMultiSlider', [])
             offset(ceilBubble, pixelize(barWidth - ceilBubble[0].offsetWidth));
             angular.forEach(scope.sliders, function(slider,key){
               if (slider.color) {
-                handles[key].css({ "background-color": slider.color });
+                handles[key].css({ 'background-color': slider.color });
               }
 
-              offset(handles[key], pixelsToOffset(percentValue(slider.value)));
-              offset(bubbles[key], pixelize(handles[key][0].offsetLeft - (bubbles[key][0].offsetWidth / 2) + handleHalfWidth));
+              if (slider.value >= minValue && slider.value <= maxValue) {
+                offset(handles[key], pixelsToOffset(percentValue(slider.value)));
+                offset(bubbles[key], pixelize(handles[key][0].offsetLeft - (bubbles[key][0].offsetWidth / 2) + handleHalfWidth));
+                handles[key].css({ 'display': 'block' });
+                bubbles[key].css({ 'display': 'block' });
+              } else {
+                handles[key].css({ 'display': 'none' });
+                bubbles[key].css({ 'display': 'none' });
+              }
             });
           };
 
@@ -310,10 +317,10 @@ angular.module('angularMultiSlider', [])
               setHandles();
 
               //Get Default sizes of bubbles and handles, assuming each are equal, calculated from css
-              handleTop = handles[0][0].offsetTop;
-              handleHeight = handles[0][0].offsetHeight;
-              bubbleTop = bubbles[0][0].offsetTop;
-              bubbleHeight = bubbles[0][0].offsetHeight + 7; //add 7px bottom margin to the bubble offset for handle
+              handleTop = handleTop === undefined ? handles[0][0].offsetTop : handleTop;
+              handleHeight = handleHeight === undefined ? handles[0][0].offsetHeight : handleHeight;
+              bubbleTop = bubbleTop === undefined ? bubbles[0][0].offsetTop : bubbleTop;
+              bubbleHeight = bubbleHeight === undefined ? bubbles[0][0].offsetHeight + 7 : bubbleHeight ; //add 7px bottom margin to the bubble offset for handle
 
               resetBubbles();
             }, 10);
@@ -322,6 +329,14 @@ angular.module('angularMultiSlider', [])
 
         // Watch Models based on mode
         scope.$watch('sliders', updateDOM);
+        scope.$watch('ceiling', function() {
+          bindingsSet = false;
+          updateDOM();
+        });
+        scope.$watch('floor', function() {
+          bindingsSet = false;
+          updateDOM();
+        });
         // Update on Window resize
         window.addEventListener('resize', updateDOM);
       }

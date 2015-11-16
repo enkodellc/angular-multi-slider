@@ -82,6 +82,7 @@ Controller scope for sliders:
 * ~~Color option within json object for each slider~~
 * ~~Handle overlapping tooltips by checking handle proximity~~
 * ~~A key directive~~
+* ~~Bind / Watch to Ceiling & Floor for adjusting endpoints~~
 * Minify src -> dist folders
 * Tests
 

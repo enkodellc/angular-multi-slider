@@ -116,6 +116,37 @@
     <h2>Sliders in a UI Bootstrap modal</h2>
     <button type="button" ng-click="openModal()" class="btn btn-default btn-lg">Open Modal!</button>
   </article>
+  <article>
+    <h2>Adjusting Ceiling of Slider after rendered</h2>
+    <form name="ceilingForm" id="ceilingForm" novalidate autocomplete="off">
+      <fieldset class="row">
+
+        <section class="col-sm-4">
+        <pre>
+          {{ sliders | json}}
+        </pre>
+        </section>
+        <section class="col-sm-6 padding-10">
+          <multi-slider name="ceilingSlider"
+                        floor="{{floor}}"
+                        step="1"
+                        precision="2"
+                        ceiling="{{ceiling}}"
+                        bubbles="true"
+                        ng-model="tabSliders"
+                        style="margin-top:80px">
+          </multi-slider>
+          <multi-slider-key ng-model="ceilingSliders"></multi-slider-key>
+          <section class="col-sm-12">
+            <label class="btn btn-primary" ng-model="floor" uib-btn-radio="0">floor 0</label>
+            <label class="btn btn-primary" ng-model="floor" uib-btn-radio="50">floor 50</label>
+            <label class="btn btn-primary" ng-model="ceiling" uib-btn-radio="100">Ceiling 100</label>
+            <label class="btn btn-primary" ng-model="ceiling" uib-btn-radio="365">Ceiling 365</label>
+          </section>
+        </section>
+      </fieldset>
+    </form>
+  </article>
 
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>

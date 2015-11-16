@@ -22,6 +22,10 @@ angular.module('multiSliderDemo')
       {title: 'File: ', value: 1.2}
     ];
 
+    // ceiling / floor is for demo for binding to slider with adjustable floor / ceiling
+    $scope.ceiling = 365;
+    $scope.floor = 0;
+
     $scope.tabSliders = [
       {value: 300, title: 'Voting on proposals: ', component: 'Voting'},
       {value: 130, title: 'Proposal editing: ', component: 'Versioning'},
