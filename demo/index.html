@@ -123,7 +123,7 @@
 
         <section class="col-sm-4">
         <pre>
-          {{ sliders | json}}
+          {{ tabSliders | json}}
         </pre>
         </section>
         <section class="col-sm-6 padding-10">
@@ -137,6 +137,38 @@
                         style="margin-top:120px">
           </multi-slider>
           <multi-slider-key ng-model="ceilingSliders"></multi-slider-key>
+          <section class="col-sm-12">
+            <label class="btn btn-primary" ng-model="floor" uib-btn-radio="0">floor 0</label>
+            <label class="btn btn-primary" ng-model="floor" uib-btn-radio="50">floor 50</label>
+            <label class="btn btn-primary" ng-model="ceiling" uib-btn-radio="100">Ceiling 100</label>
+            <label class="btn btn-primary" ng-model="ceiling" uib-btn-radio="365">Ceiling 365</label>
+          </section>
+        </section>
+      </fieldset>
+    </form>
+  </article>
+  <article>
+    <h2>Date Filter Values and End Points of Multiple Slider</h2>
+    <form name="ceilingForm" id="dateForm" novalidate autocomplete="off">
+      <fieldset class="row">
+        <section class="col-sm-4">
+        <pre>
+          {{ dateSliders | json}}
+        </pre>
+        </section>
+        <section class="col-sm-6 padding-10">
+          <multi-slider name="dateSlider"
+                        floor="{{dateFloor}}"
+                        step="86400000"
+                        precision="2"
+                        ceiling="{{dateCeiling}}"
+                        bubbles="true"
+                        display-filter="date : 'shortDate'"
+                        reletiveValues="true"
+                        ng-model="dateSliders"
+                        style="margin-top:200px">
+          </multi-slider>
+          <multi-slider-key ng-model="dateSliders" display-filter="date : 'shortDate'"></multi-slider-key>
           <section class="col-sm-12">
             <label class="btn btn-primary" ng-model="floor" uib-btn-radio="0">floor 0</label>
             <label class="btn btn-primary" ng-model="floor" uib-btn-radio="50">floor 50</label>

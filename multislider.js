@@ -6,13 +6,17 @@ angular.module('angularMultiSlider', [])
       restrict: 'EA',
       transclude: true,
       scope: {
+        displayFilter: '@',
         sliders : '=ngModel'
       },
       link: function(scope, element) {
         var sliderStr = '';
+        if (scope.displayFilter === undefined) scope.displayFilter = '';
+        var filterExpression = scope.displayFilter ===  '' ? '' : ' | ' + scope.displayFilter;
+
         angular.forEach(scope.sliders, function(slider, key){
           var colorKey = slider.color ? '<span style="background-color:' + slider.color + ';"></span> ' : '';
-          sliderStr += '<div class="key">' + colorKey + '{{ sliders[' + key.toString() + '].title }} <strong>{{ sliders[' + key.toString() + '].value}}</strong></div>';
+          sliderStr += '<div class="key">' + colorKey + '{{ sliders[' + key.toString() + '].title }} <strong>{{ sliders[' + key.toString() + '].value ' + filterExpression + '}}</strong></div>';
         });
 
         var sliderControls = angular.element('<div class="angular-multi-slider-key">' + sliderStr + '</div>');
@@ -21,7 +25,7 @@ angular.module('angularMultiSlider', [])
       }
     }
   })
-  .directive('multiSlider', function($compile) {
+  .directive('multiSlider', function($compile, $filter) {
     var events = {
       mouse: {
         start: 'mousedown',
@@ -75,17 +79,16 @@ angular.module('angularMultiSlider', [])
       restrict: 'EA',
       require: '?ngModel',
       scope: {
-        floor       : '@',
-        ceiling     : '@',
-        step        : '@',
-        precision   : '@',
-        bubbles     : '@',
-        sliders     : '=ngModel'
+        floor: '@',
+        ceiling: '@',
+        step: '@',
+        precision: '@',
+        bubbles: '@',
+        displayFilter: '@',
+        sliders: '=ngModel'
       },
       template :
-      '<div class="bar"></div>' +
-      '<div class="limit floor">{{ floor }}</div>' +
-      '<div class="limit ceiling">{{ ceiling }}</div>',
+      '<div class="bar"></div>',
 
       link : function(scope, element, attrs, ngModel) {
         if (!ngModel) return; // do nothing if no ng-model
@@ -100,9 +103,13 @@ angular.module('angularMultiSlider', [])
         element.addClass('angular-multi-slider');
 
         // DOM Components
-        var sliderStr = '';
+        if (scope.displayFilter === undefined) scope.displayFilter = '';
+        var filterExpression = scope.displayFilter ===  '' ? '' : ' | ' + scope.displayFilter;
+
+        var sliderStr = '<div class="limit floor">{{ floor ' + filterExpression + ' }}</div>' +
+                        '<div class="limit ceiling">{{ ceiling ' + filterExpression + '}}</div>';
         angular.forEach(scope.sliders, function(slider, key){
-          sliderStr += '<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value}}</div>';
+          sliderStr += '<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value ' + filterExpression + ' }}</div>';
         });
         var sliderControls = angular.element(sliderStr);
         element.append(sliderControls);

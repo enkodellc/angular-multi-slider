@@ -37,6 +37,17 @@ angular.module('multiSliderDemo')
       {value: 100, title: 'Proposal drafting: ', component: 'Proposal Making'}
     ];
 
+    // filter for dates
+    var today = new Date();
+    $scope.dateFloor = today.valueOf();
+    $scope.dateCeiling = new Date(today.getFullYear() + 1,today.getMonth(),today.getDate()).valueOf();
+
+    $scope.dateSliders = angular.copy($scope.tabSliders);
+
+    angular.forEach($scope.dateSliders,function(slider){
+      slider.value = $scope.dateFloor + (slider.value * 86400000); //milliseconds in a day
+    });
+
     $scope.openModal = function() {
       var modalDlg = $uibModal.open({
         templateUrl: 'sliderModal.html',
