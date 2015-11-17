@@ -170,10 +170,10 @@
           </multi-slider>
           <multi-slider-key ng-model="dateSliders" display-filter="date : 'shortDate'"></multi-slider-key>
           <section class="col-sm-12">
-            <label class="btn btn-primary" ng-model="floor" uib-btn-radio="0">floor 0</label>
-            <label class="btn btn-primary" ng-model="floor" uib-btn-radio="50">floor 50</label>
-            <label class="btn btn-primary" ng-model="ceiling" uib-btn-radio="100">Ceiling 100</label>
-            <label class="btn btn-primary" ng-model="ceiling" uib-btn-radio="365">Ceiling 365</label>
+            <label class="btn btn-primary" ng-model="dateFloor" uib-btn-radio="getDateOffset(0)">floor 0</label>
+            <label class="btn btn-primary" ng-model="dateFloor" uib-btn-radio="getDateOffset(50)">floor 50 days</label>
+            <label class="btn btn-primary" ng-model="dateCeiling" uib-btn-radio="getDateOffset(100)">Ceiling 100 days</label>
+            <label class="btn btn-primary" ng-model="dateCeiling" uib-btn-radio="getDateOffset(365)">Ceiling 1 year</label>
           </section>
         </section>
       </fieldset>

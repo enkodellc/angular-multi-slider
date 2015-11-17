@@ -37,15 +37,21 @@ angular.module('multiSliderDemo')
       {value: 100, title: 'Proposal drafting: ', component: 'Proposal Making'}
     ];
 
-    // filter for dates
-    var today = new Date();
-    $scope.dateFloor = today.valueOf();
-    $scope.dateCeiling = new Date(today.getFullYear() + 1,today.getMonth(),today.getDate()).valueOf();
+    // date conversions for filter
+    $scope.getDateOffset = function(daysFromNow) {
+      var today = new Date();
+      return today.valueOf() + (daysFromNow * 86400000);
+    };
+
+    $scope.dateFloor = $scope.getDateOffset(0);
+    $scope.dateCeiling = $scope.getDateOffset(365);
 
     $scope.dateSliders = angular.copy($scope.tabSliders);
 
+    //Copy tabSlider, use value but convert to javascript date primitive
+    //*Note: The primitive value is returned as the number of millisecond since midnight January 1, 1970 UTC.
     angular.forEach($scope.dateSliders,function(slider){
-      slider.value = $scope.dateFloor + (slider.value * 86400000); //milliseconds in a day
+      slider.value = $scope.getDateOffset(slider.value);
     });
 
     $scope.openModal = function() {
