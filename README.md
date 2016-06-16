@@ -89,6 +89,8 @@ This optional directive will create a key for the slider. Similar to __multi-sli
 * ~~Bind / Watch to Ceiling & Floor for adjusting endpoints~~
 * ~~Add filter to directive property for possible dates / angular filter~~
 * ~~Added overlap prevention for sequential sliders [__no-overlap__ branch](https://github.com/enkodellc/angular-multi-slider/tree/no-overlap)~~
+* ~~ng-Hide~~
+* Set individual handles Visible / Enabled
 * Minify src -> dist folders
 * Tests
 

@@ -88,3 +88,12 @@
 .angular-multi-slider-key .key span {
     border: 1px solid #000;
 }
+.angular-multi-slider div.handle.disabled,
+.angular-multi-slider div.handle.disabled:hover + .bubble{
+    -webkit-filter: brightness(100%);
+    filter: brightness(100%);
+    cursor: not-allowed;
+    -webkit-transform: scale(1.0) !important;
+    transform: scale(1.0);
+    z-index: 2;
+}

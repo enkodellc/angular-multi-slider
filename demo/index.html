@@ -33,7 +33,7 @@
   </article>
   <hr/>
   <article>
-    <h2>Multiple Sliders with defined Colors in a Form - Persistent Bubbles</h2>
+    <h2>Multiple Sliders with defined Colors in a Form - Persistent Bubbles - Hidden</h2>
     <form name="sliderForm" id="sliderForm" novalidate autocomplete="off">
       <fieldset class="row">
         <section class="col-sm-4">
@@ -49,9 +49,10 @@
                         ceiling="500"
                         bubbles="true"
                         ng-model="sliders"
+                        ng-hide="hideSliders"
                         style="margin-top:60px">
           </multi-slider>
-          <multi-slider-key ng-model="sliders"></multi-slider-key>
+          <multi-slider-key ng-model="sliders" ng-hide="hideSliders"></multi-slider-key>
         </section>
         <section class="col-sm-2">
           <p>
@@ -62,6 +63,19 @@
             Slider Dirty: {{ sliderForm.mySlider.$dirty }}
             <br/>
             Slider Pristine: {{ sliderForm.mySlider.$pristine }}
+            <br/>
+            Slider Hidden: {{ hideSliders }}<br/>
+            <label>Hide Slider:
+              <input type="checkbox" ng-model="hideSliders">
+            </label>
+           <br/>
+
+            *Slider Enabled / Hidden NOT Fully Working ->
+            <button type="button" class="btn btn-lg" ng-click="fileToggleVisibility()" ng-bind="'Set File slider visible to ' + !sliders[1].visible"
+                    ng-class="sliders[1].visible ? 'btn-primary' : 'btn-danger' "></button>
+            <br/>
+            <button type="button" class="btn btn-danger btn-lg" ng-click="fileToggleEnabled()" ng-bind="'Set File slider enabled to ' + !sliders[1].enabled"
+                    ng-class=" sliders[1].enabled ? 'btn-primary' : 'btn-danger' "></button>
         </section>
       </fieldset>
     </form>

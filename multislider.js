@@ -85,12 +85,13 @@ angular.module('angularMultiSlider', [])
         precision: '@',
         bubbles: '@',
         displayFilter: '@',
-        sliders: '=ngModel'
+        sliders: '=ngModel',
+        ngHide: '=?'
       },
       template :
       '<div class="bar"></div>',
 
-      link : function(scope, element, attrs, ngModel) {
+      link: function(scope, element, attrs, ngModel) {
         if (!ngModel) return; // do nothing if no ng-model
 
         //base copy to see if sliders returned to original
@@ -169,6 +170,9 @@ angular.module('angularMultiSlider', [])
         };
 
         var updateDOM = function () {
+          if(angular.isDefined(attrs.ngHide) && scope.ngHide == true) {
+            return;
+          }
 
           updateCalculations();
 
@@ -188,43 +192,56 @@ angular.module('angularMultiSlider', [])
             offset(ceilBubble, pixelize(barWidth - ceilBubble[0].offsetWidth));
             angular.forEach(scope.sliders, function(slider,key){
               if (slider.color) {
-                handles[key].css({ 'background-color': slider.color });
+                handles[key].css({'background-color': slider.color});
               }
 
               if (slider.value >= minValue && slider.value <= maxValue) {
                 offset(handles[key], pixelsToOffset(percentValue(slider.value)));
                 offset(bubbles[key], pixelize(handles[key][0].offsetLeft - (bubbles[key][0].offsetWidth / 2) + handleHalfWidth));
-                handles[key].css({ 'display': 'block' });
+                handles[key].css({'display': 'block'});
                 if ('' + scope.bubbles === 'true') {
                   bubbles[key].css({'display': 'block'});
                 }
               } else {
-                handles[key].css({ 'display': 'none' });
-                bubbles[key].css({ 'display': 'none' });
+                handles[key].css({'display': 'none'});
+                bubbles[key].css({'display': 'none'});
+              }
+
+              if (slider.hasOwnProperty("visible") && slider.visible === false) {
+                handles[key].css({'display': 'none'});
+                bubbles[key].css({'display': 'none'});
+              }
+
+              if (slider.hasOwnProperty("enabled") && slider.enabled === false) {
+                handles[key].addClass('disabled');
+                bubbles[key].addClass('disabled');
+              } else {
+                handles[key].removeClass('disabled');
+                bubbles[key].removeClass('disabled');
               }
             });
           };
 
           var resetBubbles = function() {
-            if (scope.sliders.length > 1) {
-              //timeout must be longer than css animation for proper bubble collision detection
-              for (var i = 0; i < scope.sliders.length; i++) {
-                (function (index) {
-                  setTimeout(function () {
-                    overlapCheck(index);
-                  }, i * 150);
-                })(i);
-              }
-            }
+             if (scope.sliders.length > 1) {
+               //timeout must be longer than css animation for proper bubble collision detection
+               for (var i = 0; i < scope.sliders.length; i++) {
+                 (function (index) {
+                   setTimeout(function () {
+                     overlapCheck(index);
+                   }, i * 150);
+                 })(i);
+               }
+             }
           };
 
           var overlapCheck = function(currentRef) {
             var safeAtLevel = function(cRef, level) {
               for (var x = 0; x < scope.sliders.length; x++) {
-                if (x != cRef && overlaps(bubbles[cRef][0], bubbles[x][0], (bubbleTop * level))) {
-                  return safeAtLevel(cRef, level+1);
+                  if (x != cRef && overlaps(bubbles[cRef][0], bubbles[x][0], (bubbleTop * level))) {
+                    return safeAtLevel(cRef, level + 1);
+                  }
                 }
-              }
               return level;
             };
 
@@ -285,6 +302,11 @@ angular.module('angularMultiSlider', [])
             };
 
             var onStart = function (event) {
+              if (scope.sliders[currentRef].hasOwnProperty("enabled") && scope.sliders[currentRef].enabled === false) {
+                bubble.addClass('disabled');
+                handle.addClass('disabled');
+                return;
+              }
               updateCalculations();
               bubble.addClass('active grab');
               handle.addClass('active grab');
@@ -305,48 +327,60 @@ angular.module('angularMultiSlider', [])
               method = inputTypes[i];
               angular.forEach(scope.sliders, function(slider, key){
                 bind(handles[key], bubbles[key], key, events[method]);
+                if (scope.sliders[key].hasOwnProperty("enabled") && scope.sliders[key].enabled === false) {
+                  handles[key].addClass('disabled');
+                  bubbles[key].addClass('disabled');
+                }
               });
             }
 
             bindingsSet = true;
           };
 
-          if (!bindingsSet) {
-            setBindings();
+           if (!bindingsSet) {
+             setBindings();
 
-            // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
-            setTimeout( function() {
-              if ('' + scope.bubbles === 'true') {
-                angular.forEach(bubbles, function (bubble) {
-                  bubble.addClass('active');
-                });
-              }
-              updateCalculations();
-              setHandles();
+             // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
+             setTimeout( function() {
+               if ('' + scope.bubbles === 'true') {
+                 angular.forEach(bubbles, function (bubble) {
+                    bubble.addClass('active');
+                 });
+               }
+               updateCalculations();
+               setHandles();
 
-              //Get Default sizes of bubbles and handles, assuming each are equal, calculated from css
-              handleTop = handleTop === undefined ? handles[0][0].offsetTop : handleTop;
-              handleHeight = handleHeight === undefined ? handles[0][0].offsetHeight : handleHeight;
-              bubbleTop = bubbleTop === undefined ? bubbles[0][0].offsetTop : bubbleTop;
-              bubbleHeight = bubbleHeight === undefined ? bubbles[0][0].offsetHeight + 7 : bubbleHeight ; //add 7px bottom margin to the bubble offset for handle
+               //Get Default sizes of bubbles and handles, assuming each are equal, calculated from css
+               handleTop = handleTop === undefined ? handles[0][0].offsetTop : handleTop;
+               handleHeight = handleHeight === undefined ? handles[0][0].offsetHeight : handleHeight;
+               bubbleTop = bubbleTop === undefined ? bubbles[0][0].offsetTop : bubbleTop;
+               bubbleHeight = bubbleHeight === undefined ? bubbles[0][0].offsetHeight + 7 : bubbleHeight ; //add 7px bottom margin to the bubble offset for handle
 
-              resetBubbles();
-            }, 10);
-          }
+               resetBubbles();
+             }, 10);
+           }
         };
 
         // Watch Models based on mode
         scope.$watch('sliders', updateDOM);
-        scope.$watch('ceiling', function() {
-          bindingsSet = false;
-          updateDOM();
-        });
-        scope.$watch('floor', function() {
-          bindingsSet = false;
-          updateDOM();
-        });
-        // Update on Window resize
-        window.addEventListener('resize', updateDOM);
+          scope.$watch('ceiling', function () {
+            bindingsSet = false;
+            updateDOM();
+          });
+          scope.$watch('floor', function () {
+            bindingsSet = false;
+            updateDOM();
+          });
+
+          // Watch if ng-Hide is utilized
+          if (angular.isDefined(attrs.ngHide)) {
+            scope.$watch('ngHide', function () {
+              bindingsSet = false;
+              updateDOM();
+            });
+          }
+          // Update on Window resize
+          window.addEventListener('resize', updateDOM);
+        }
       }
-    }
   });

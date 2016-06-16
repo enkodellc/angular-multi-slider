@@ -4,6 +4,14 @@ angular.module('multiSliderDemo', ['angularMultiSlider', 'ngAnimate', 'ui.bootst
 
 angular.module('multiSliderDemo')
   .controller('DemoCtrl', function ($rootScope, $scope, $uibModal) {
+    $scope.hideSliders = true;
+    $scope.fileToggleVisibility = function() {
+      $scope.sliders[1].visible = !$scope.sliders[1].visible;
+    };
+
+    $scope.fileToggleEnabled = function() {
+      $scope.sliders[1].enabled = !$scope.sliders[1].enabled;
+    };
 
     //Needed for uib-tabs only
     $scope.activeTabs = [true, false];
@@ -12,8 +20,8 @@ angular.module('multiSliderDemo')
 
     $scope.sliders = [
       {title: 'Weight: ', value: 100, color: 'red'},
-      {title: 'File: ', value: 240, color: '#00FF00'},
-      {title: 'Test: ', value: 250, color: 'blue'},
+      {title: 'File: ', value: 240, color: '#00FF00', visible: true, enabled: false},
+      {title: 'Test: ', value: 250, color: 'blue', visible: false, enabled: false},
       {title: 'Folder: ', value: 10, color: '#ccc'}
     ];
 
