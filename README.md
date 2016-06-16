@@ -7,6 +7,9 @@ I have added a key / legend and collision detection. The collision detection / b
 have an animation to them. Collision detection and bubble adjustment is not perfect but very good. If you have some ideas on improving
 this directive feel free to let me know.
 
+## Show Some Love
+If you utilize this directive please give it a Star. It will motivate me to add features and continually maintain it. 
+
 *[Derived from angular-rangeslider](https://github.com/supertorio/angular-rangeslider-directive) 
 
 ### Installing via Bower
