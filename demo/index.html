@@ -131,7 +131,7 @@
     <button type="button" ng-click="openModal()" class="btn btn-default btn-lg">Open Modal!</button>
   </article>
   <article>
-    <h2>Adjusting Floor / Ceiling end points of Slider after rendered</h2>
+    <h2>Adjusting Floor / Ceiling end points of Slider after rendered (Maintain slider Order)</h2>
     <form name="ceilingForm" id="ceilingForm" novalidate autocomplete="off">
       <fieldset class="row">
 
@@ -147,6 +147,7 @@
                         precision="2"
                         ceiling="{{ceiling}}"
                         bubbles="true"
+                        maintain-order="true"
                         ng-model="tabSliders"
                         style="margin-top:120px">
           </multi-slider>
@@ -178,7 +179,7 @@
                         ceiling="{{dateCeiling}}"
                         bubbles="true"
                         display-filter="date : 'shortDate'"
-                        reletiveValues="true"
+                        maintain-order="false"
                         ng-model="dateSliders"
                         style="margin-top:200px">
           </multi-slider>

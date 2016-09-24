@@ -85,6 +85,7 @@ angular.module('angularMultiSlider', [])
         precision: '@',
         bubbles: '@',
         displayFilter: '@',
+        maintainOrder: '@',
         sliders: '=ngModel',
         ngHide: '=?'
       },
@@ -119,7 +120,6 @@ angular.module('angularMultiSlider', [])
         var children  = element.children();
         var bar       = angular.element(children[0]),
           ngDocument  = angular.element(document),
-          floorBubble = angular.element(children[1]),
           ceilBubble  = angular.element(children[2]),
           bubbles = [],
           handles = [];
@@ -148,6 +148,7 @@ angular.module('angularMultiSlider', [])
         if (scope.ceiling === undefined) scope.ceiling = 500;
         if (scope.precision === undefined) scope.precision = 2;
         if (scope.bubbles === undefined) scope.bubbles = false;
+        if (scope.maintainOrder === undefined) scope.maintainOrder = false;
 
         var bindingsSet = false;
 
@@ -291,6 +292,21 @@ angular.module('angularMultiSlider', [])
                 newPercent = percentOffset(newOffset),
                 newValue = minValue + (valueRange * newPercent / 100.0);
 
+              if (scope.maintainOrder === 'true') {
+                if ((currentRef === 0) && (newValue >= scope.sliders[currentRef + 1].value)) {
+                  newValue = scope.sliders[currentRef + 1].value;
+                } else if ((currentRef + 1 === scope.sliders.length) && (newValue <= scope.sliders[currentRef-1].value)) {
+                  newValue = scope.sliders[currentRef - 1].value;
+                } else if ((currentRef > 0) && (currentRef + 1 < scope.sliders.length)) {
+                  if (newValue <= scope.sliders[currentRef - 1].value){
+                    newValue = scope.sliders[currentRef - 1].value;
+                  }
+                  if (newValue >= scope.sliders[currentRef + 1].value) {
+                    newValue = scope.sliders[currentRef + 1].value;
+                  }
+                }
+              }
+              
               newValue = roundStep(newValue, parseInt(scope.precision), parseFloat(scope.step), parseFloat(scope.floor));
               scope.sliders[currentRef].value = newValue;
 

@@ -61,6 +61,7 @@ Controller scope for sliders:
 * __display-filter__ `{$filter}` Optional angular filter expression.
 * __ng-model__ `{object}` Bound values for sliders, requires 'value' for slider and 'title' for bubble
 * __bubbles__ `{string}` true or false for showing the persistent bubbles or false for just on hover
+* __maintain-order__ `{string}` true or false for maintaining the order of the sliders. To function properly you your slider array should be sorted to start with
 
 ## NgModel Properties
 
@@ -93,6 +94,7 @@ This optional directive will create a key for the slider. Similar to __multi-sli
 * ~~Add filter to directive property for possible dates / angular filter~~
 * ~~Added overlap prevention for sequential sliders [__no-overlap__ branch](https://github.com/enkodellc/angular-multi-slider/tree/no-overlap)~~
 * ~~ng-Hide~~
+* ~~Maintain Order of sliders~~
 * Set individual handles Visible / Enabled
 * Minify src -> dist folders
 * Tests
