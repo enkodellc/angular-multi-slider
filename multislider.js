@@ -94,7 +94,7 @@ angular.module('angularMultiSlider', [])
 
       link: function(scope, element, attrs, ngModel) {
         if (!ngModel) return; // do nothing if no ng-model
-
+        
         //base copy to see if sliders returned to original
         var original;
 
@@ -110,9 +110,11 @@ angular.module('angularMultiSlider', [])
 
         var sliderStr = '<div class="limit floor">{{ floor ' + filterExpression + ' }}</div>' +
                         '<div class="limit ceiling">{{ ceiling ' + filterExpression + '}}</div>';
+
         angular.forEach(scope.sliders, function(slider, key){
           sliderStr += '<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value ' + filterExpression + ' }}</div>';
         });
+
         var sliderControls = angular.element(sliderStr);
         element.append(sliderControls);
         $compile(sliderControls)(scope);
@@ -353,7 +355,7 @@ angular.module('angularMultiSlider', [])
             bindingsSet = true;
           };
 
-           if (!bindingsSet) {
+          if (!bindingsSet) {
              setBindings();
 
              // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
@@ -378,25 +380,30 @@ angular.module('angularMultiSlider', [])
         };
 
         // Watch Models based on mode
-        scope.$watch('sliders', updateDOM);
-          scope.$watch('ceiling', function () {
-            bindingsSet = false;
-            updateDOM();
-          });
-          scope.$watch('floor', function () {
-            bindingsSet = false;
-            updateDOM();
-          });
+        scope.$watch('sliders', function () {
+          bindingsSet = false;
+          updateDOM();
+        });
 
-          // Watch if ng-Hide is utilized
-          if (angular.isDefined(attrs.ngHide)) {
-            scope.$watch('ngHide', function () {
-              bindingsSet = false;
-              updateDOM();
-            });
-          }
-          // Update on Window resize
-          window.addEventListener('resize', updateDOM);
+        scope.$watch('ceiling', function () {
+          bindingsSet = false;
+          updateDOM();
+        });
+
+        scope.$watch('floor', function () {
+          bindingsSet = false;
+          updateDOM();
+        });
+
+        // Watch if ng-Hide is utilized
+        if (angular.isDefined(attrs.ngHide)) {
+          scope.$watch('ngHide', function () {
+            bindingsSet = false;
+            updateDOM();
+          });
         }
+        // Update on Window resize
+        window.addEventListener('resize', updateDOM);
       }
+    }
   });
