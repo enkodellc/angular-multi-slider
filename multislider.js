@@ -15,7 +15,7 @@ angular.module('angularMultiSlider', [])
         var filterExpression = scope.displayFilter ===  '' ? '' : ' | ' + scope.displayFilter;
 
         angular.forEach(scope.sliders, function(slider, key){
-          var colorKey = slider.color ? '<span style="background-color:' + slider.color + ';"></span> ' : '';
+          var colorKey = slider.color ? '<span style="background-color:' + slider.color + ';"></span>' : '';
           sliderStr += '<div class="key">' + colorKey + '{{ sliders[' + key.toString() + '].title }} <strong>{{ sliders[' + key.toString() + '].value ' + filterExpression + '}}</strong></div>';
         });
 
@@ -89,16 +89,22 @@ angular.module('angularMultiSlider', [])
         sliders: '=ngModel',
         ngHide: '=?'
       },
-      template :
-      '<div class="bar"></div>',
+      template : '',
 
       link: function(scope, element, attrs, ngModel) {
         if (!ngModel) return; // do nothing if no ng-model
-        
+
         //base copy to see if sliders returned to original
-        var original;
+        var original = [];
 
         ngModel.$render = function() {
+          if (original.length > 0 && (original.length != scope.sliders.length)) {
+            angular.element(element).html('');
+            buildSliderStr();
+            bindingsSet = true;
+            updateDOM();
+          }
+
           original = angular.copy(scope.sliders);
         };
 
@@ -108,28 +114,37 @@ angular.module('angularMultiSlider', [])
         if (scope.displayFilter === undefined) scope.displayFilter = '';
         var filterExpression = scope.displayFilter ===  '' ? '' : ' | ' + scope.displayFilter;
 
-        var sliderStr = '<div class="limit floor">{{ floor ' + filterExpression + ' }}</div>' +
-                        '<div class="limit ceiling">{{ ceiling ' + filterExpression + '}}</div>';
-
-        angular.forEach(scope.sliders, function(slider, key){
-          sliderStr += '<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value ' + filterExpression + ' }}</div>';
-        });
-
-        var sliderControls = angular.element(sliderStr);
-        element.append(sliderControls);
-        $compile(sliderControls)(scope);
-
-        var children  = element.children();
-        var bar       = angular.element(children[0]),
-          ngDocument  = angular.element(document),
-          ceilBubble  = angular.element(children[2]),
+        var sliderStr = '';
+        var bar, ngDocument, ceilBubble,
           bubbles = [],
           handles = [];
 
-        angular.forEach(scope.sliders, function(slider, key) {
-          handles.push(angular.element(children[(key * 2) + 3]));
-          bubbles.push(angular.element(children[(key * 2) + 4]));
-        });
+        var buildSliderStr = function() {
+          sliderStr = '<div class="bar"></div><div class="limit floor">{{ floor ' + filterExpression + ' }}</div>' +
+            '<div class="limit ceiling">{{ ceiling ' + filterExpression + '}}</div>';
+
+          angular.forEach(scope.sliders, function(slider, key){
+            sliderStr += '<div class="handle"></div><div class="bubble">{{ sliders[' + key.toString() + '].title }}{{ sliders[' + key.toString() + '].value ' + filterExpression + ' }}</div>';
+          });
+
+          var sliderControls = angular.element(sliderStr);
+          element.append(sliderControls);
+          $compile(sliderControls)(scope);
+
+          var children = element.children();
+          bar          = angular.element(children[0]);
+          ngDocument   = angular.element(document);
+          ceilBubble   = angular.element(children[2]);
+          bubbles = [];
+          handles = [];
+
+          angular.forEach(scope.sliders, function(slider, key) {
+            handles.push(angular.element(children[(key * 2) + 3]));
+            bubbles.push(angular.element(children[(key * 2) + 4]));
+          });
+        };
+
+        buildSliderStr();
 
         // Control Dimensions Used for Calculations
         var handleHalfWidth = 0,
@@ -226,29 +241,29 @@ angular.module('angularMultiSlider', [])
           };
 
           var resetBubbles = function() {
-             if (scope.sliders.length > 1) {
-               //timeout must be longer than css animation for proper bubble collision detection
-               for (var i = 0; i < scope.sliders.length; i++) {
-                 (function (index) {
-                   setTimeout(function () {
-                     overlapCheck(index);
-                   }, i * 150);
-                 })(i);
-               }
-             }
+            if (scope.sliders.length > 1) {
+              //timeout must be longer than css animation for proper bubble collision detection
+              for (var i = 0; i < scope.sliders.length; i++) {
+                (function (index) {
+                  setTimeout(function () {
+                    overlapCheck(index);
+                  }, i * 150);
+                })(i);
+              }
+            }
           };
 
           var overlapCheck = function(currentRef) {
             var safeAtLevel = function(cRef, level) {
               for (var x = 0; x < scope.sliders.length; x++) {
-                  if (x != cRef && overlaps(bubbles[cRef][0], bubbles[x][0], (bubbleTop * level))) {
-                    return safeAtLevel(cRef, level + 1);
-                  }
+                if (x != cRef && overlaps(bubbles[cRef][0], bubbles[x][0], (bubbleTop * level))) {
+                  return safeAtLevel(cRef, level + 1);
                 }
+              }
               return level;
             };
 
-            if (scope.sliders.length > 1) {
+            if (scope.sliders.length > 1 && scope.bubbles === true) {
               var safeLevel = safeAtLevel(currentRef, 1) - 1;
               handles[currentRef].css({top: pixelize((-1 * (safeLevel * bubbleHeight)) + handleTop), height: pixelize(handleHeight + (bubbleHeight * safeLevel)), 'z-index':  99-safeLevel});
               bubbles[currentRef].css({top: pixelize(bubbleTop - (bubbleHeight * safeLevel))});
@@ -308,7 +323,7 @@ angular.module('angularMultiSlider', [])
                   }
                 }
               }
-              
+
               newValue = roundStep(newValue, parseInt(scope.precision), parseFloat(scope.step), parseFloat(scope.floor));
               scope.sliders[currentRef].value = newValue;
 
@@ -356,27 +371,27 @@ angular.module('angularMultiSlider', [])
           };
 
           if (!bindingsSet) {
-             setBindings();
+            setBindings();
 
-             // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
-             setTimeout( function() {
-               if ('' + scope.bubbles === 'true') {
-                 angular.forEach(bubbles, function (bubble) {
-                    bubble.addClass('active');
-                 });
-               }
-               updateCalculations();
-               setHandles();
+            // Timeout needed because bubbles offsetWidth is incorrect during initial rendering of html elements
+            setTimeout( function() {
+              if ('' + scope.bubbles === 'true') {
+                angular.forEach(bubbles, function (bubble) {
+                  bubble.addClass('active');
+                });
+              }
+              updateCalculations();
+              setHandles();
 
-               //Get Default sizes of bubbles and handles, assuming each are equal, calculated from css
-               handleTop = handleTop === undefined ? handles[0][0].offsetTop : handleTop;
-               handleHeight = handleHeight === undefined ? handles[0][0].offsetHeight : handleHeight;
-               bubbleTop = bubbleTop === undefined ? bubbles[0][0].offsetTop : bubbleTop;
-               bubbleHeight = bubbleHeight === undefined ? bubbles[0][0].offsetHeight + 7 : bubbleHeight ; //add 7px bottom margin to the bubble offset for handle
+              //Get Default sizes of bubbles and handles, assuming each are equal, calculated from css
+              handleTop = handleTop === undefined ? handles[0][0].offsetTop : handleTop;
+              handleHeight = handleHeight === undefined ? handles[0][0].offsetHeight : handleHeight;
+              bubbleTop = bubbleTop === undefined ? bubbles[0][0].offsetTop : bubbleTop;
+              bubbleHeight = bubbleHeight === undefined ? bubbles[0][0].offsetHeight + 7 : bubbleHeight ; //add 7px bottom margin to the bubble offset for handle
 
-               resetBubbles();
-             }, 10);
-           }
+              resetBubbles();
+            }, 10);
+          }
         };
 
         // Watch Models based on mode

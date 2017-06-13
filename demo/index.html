@@ -33,6 +33,27 @@
   </article>
   <hr/>
   <article>
+    <h2>Adding Sliders After Creation</h2>
+    <fieldset class="row">
+      <section class="col-sm-4">
+        <pre>
+          {{ addSlider | json}}
+        </pre>
+      </section>
+      <section class="col-sm-6 padding-10" style="padding-top: 80px;">
+        <div multi-slider
+             floor="0"
+             ceiling="500"
+             step="10"
+             precision="2"
+             bubbles="true"
+             ng-model="addSlider"></div>
+        <button class="btn btn-info" ng-click="addAnother()">Add another Slider</button>
+      </section>
+    </fieldset>
+  </article>
+  <hr/>
+  <article>
     <h2>Multiple Sliders with defined Colors in a Form - Persistent Bubbles - Hidden</h2>
     <form name="sliderForm" id="sliderForm" novalidate autocomplete="off">
       <fieldset class="row">

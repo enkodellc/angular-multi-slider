@@ -95,6 +95,7 @@ This optional directive will create a key for the slider. Similar to __multi-sli
 * ~~Added overlap prevention for sequential sliders [__no-overlap__ branch](https://github.com/enkodellc/angular-multi-slider/tree/no-overlap)~~
 * ~~ng-Hide~~
 * ~~Maintain Order of sliders so they do not overlap each other~~
+* ~~Adding new Sliders after initial directive render~~
 * Set individual handles Visible / Enabled
 * Minify src -> dist folders
 * Tests

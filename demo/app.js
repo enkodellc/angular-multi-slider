@@ -13,10 +13,39 @@ angular.module('multiSliderDemo')
       $scope.sliders[1].enabled = !$scope.sliders[1].enabled;
     };
 
+    $scope.addSlider = [{
+      value: 50,
+      title: 'this is slider (1) - '
+    }];
+
+    var anotherSlider = {
+      value: 300,
+      title: "this is slider (2) - "
+    };
+
+    //push on slider array will work prior to first bind
+    $scope.addSlider.push(anotherSlider);
+
+
+    $scope.addAnother = function() {
+      var updatedSlider = angular.copy($scope.addSlider);
+
+      var another = {
+        value: $scope.addSlider.length * 50,
+        title: "This is slider (" + ($scope.addSlider.length + 1) + ") - "
+      };
+
+      updatedSlider.push(another);
+
+      //pushing additional sliders requires angular copy as it will cause a render in the directive a push will not
+      $scope.addSlider = angular.copy(updatedSlider);
+      console.log("added another!");
+    };
+
     //Needed for uib-tabs only
     $scope.activeTabs = [true, false];
 
-    $scope.slider = [{value: 200}];
+    $scope.slider = [{value: 200}, {value: 150}];
 
     $scope.sliders = [
       {title: 'Weight: ', value: 100, color: 'red'},
