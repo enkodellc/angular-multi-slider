@@ -1,4 +1,4 @@
-angular-multi-slider Version 0.1.4
+angular-multi-slider Version 0.1.5
 ===================
 
 AngularJS multi slider component with multiple sliders and thumbs support. Easily bind to 'value' and 'title' json objects. 
