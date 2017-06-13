@@ -241,7 +241,7 @@ angular.module('angularMultiSlider', [])
           };
 
           var resetBubbles = function() {
-            if (scope.sliders.length > 1) {
+            if (scope.sliders.length > 1 && scope.bubbles === "true") {
               //timeout must be longer than css animation for proper bubble collision detection
               for (var i = 0; i < scope.sliders.length; i++) {
                 (function (index) {
